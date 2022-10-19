@@ -1,0 +1,48 @@
+.main{
+    @apply w-full h-full flex flex-row;
+}
+
+.picturecontainer{
+    @apply pt-4 pl-4;
+}
+
+.profilepic{
+    @apply rounded-full;
+
+}
+
+.middlecontainer{
+    height:15%;
+    width:85%;
+}
+
+.sidecontainer{
+    @apply flex flex-col;
+    width: 15%;
+}
+
+.topbar{
+    @apply w-full  bg-background font-bold pl-4 text-xl; 
+}
+
+.textbox{
+    @apply w-full outline-none focus:pt-10 overflow-y-visible;
+}
+
+.bottombarcontainer{
+    @apply flex flex-col;
+}
+.svgcontainer {
+    @apply flex ;
+}
+
+.postenhancementscontainer{
+    @apply flex flex-row;
+}
+
+.svg{ 
+    @apply my-4; 
+    color: #1e9cf1;
+   height: 26px;
+   width: 26px;
+}

@@ -1,0 +1,19 @@
+.main{
+    @apply w-full h-full min-h-screen flex flex-row;
+}
+
+.sidebarcontainer{
+    @apply h-full min-h-screen;
+    width: 18%;
+}
+
+.content{
+    @apply h-full min-h-screen border-l border-r border-[#f0f2f8] mt-3;
+    width: 64%;
+}
+
+.explorecontainer{
+    @apply h-full min-h-screen;
+    width: 18%;
+}
+
