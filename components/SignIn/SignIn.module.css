@@ -1,0 +1,14 @@
+.main{
+    @apply w-screen h-screen absolute z-50 ;
+}
+.background {
+    @apply w-full h-full absolute bg-gray opacity-60;
+}
+
+.login{
+    @apply z-50 w-full h-full flex items-center justify-center  ;
+}
+
+.test{
+    @apply z-50;
+}

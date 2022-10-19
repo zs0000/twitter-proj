@@ -1,16 +1,15 @@
 import Head from 'next/head'
-import Image from 'next/image'
+
 import s from '../styles/Home.module.css'
-import bg from "../public/twitbg.png"
-import hdbg from "../public/twithdbg.png"
+
 import { useState, useEffect } from 'react'
-import SignIn from '../components/SignIn/SignIn'
+
 import SignedOut from '../components/SignedOut/SignedOut'
 import { supabase } from '../utils/supabaseClient'
 import Feed from '../components/Feed/Feed.js'
 import Account from '../components/Account/Account'
 
-export default function Index() {
+export default function Home() {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -69,7 +68,7 @@ export default function Index() {
       {!session ? (
        <SignedOut />
       ) : (
-        <Account key={session.user.id} session={session} />
+       <Feed/>
       )}
     
       <footer className={s.footer}>

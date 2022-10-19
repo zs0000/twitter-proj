@@ -1,0 +1,9 @@
+.main{
+    @apply  w-full h-full z-50 flex items-center justify-center;
+}
+
+.form{
+    @apply shadow bg-background rounded-lg flex flex-col justify-center items-center ;
+    width: 60%;
+    height:65%;
+}

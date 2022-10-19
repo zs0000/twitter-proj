@@ -1,0 +1,46 @@
+.main{
+    @apply w-full flex flex-col justify-center items-center bg-[#ffffff] ;
+}
+
+
+.inputcontainer{
+    @apply w-full flex  flex-col;
+}
+
+.buttons{
+    @apply w-full flex flex-col justify-evenly items-center;
+}
+
+
+.input{
+    @apply border border-[#f0f2f8] py-1 px-2 rounded-md;
+}
+
+@screen xs {
+
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .form{
+        @apply grid grid-cols-2 ;
+        width:90%;
+    }
+   
+    
+}
+
+@screen lg {
+
+}
+
+@screen xl {
+
+}
+
+@screen 2xl {
+
+}
