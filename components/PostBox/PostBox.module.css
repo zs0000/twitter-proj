@@ -1,5 +1,5 @@
 .main{
-    @apply w-full h-full flex flex-row;
+    @apply w-full h-full flex flex-row border-[#f0f2f8]  border-b;
 }
 
 .picturecontainer{
@@ -24,16 +24,19 @@
 .topbar{
     @apply w-full  bg-background font-bold pl-4 text-xl; 
 }
+.textboxcontainer{
+    @apply w-full  flex-wrap flex overflow-x-visible;
+}
 
 .textbox{
-    @apply w-full outline-none focus:pt-10 overflow-y-visible;
+    @apply w-full outline-none focus:pt-10 flex-wrap flex h-full;
 }
 
 .bottombarcontainer{
     @apply flex flex-col;
 }
 .svgcontainer {
-    @apply flex ;
+    @apply flex;
 }
 
 .postenhancementscontainer{

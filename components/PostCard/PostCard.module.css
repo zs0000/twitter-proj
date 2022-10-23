@@ -1,0 +1,46 @@
+.postcontainer {
+    @apply w-full h-full flex flex-row pb-1 pt-4 hover:cursor-pointer border-[#f0f2f8]  border-b hover:bg-[#f8f6f6] hover:transition-transform duration-200; 
+}
+
+.profilepicture{
+    @apply rounded-full;
+
+}
+.picturecontainer{
+    @apply ml-4;
+}
+
+.sidecontainer {
+    width: 70px;
+}
+
+.primarycontainer{
+    @apply w-full mx-4;
+}
+
+.authorcontainer{
+    @apply w-full flex flex-row ;
+}
+
+.author {
+   @apply font-bold mr-1 hover:underline hover:cursor-pointer; 
+}
+
+.authorhandle{
+    @apply text-[#717274] hover:cursor-pointer;
+} 
+
+.interactionsbar{
+    @apply flex flex-row w-full justify-evenly py-1 pt-3;
+}
+
+.svgcontainer{
+    @apply flex   justify-start items-start;
+    width:25%;
+    height:25px;
+}
+
+.svg{
+    width: 18px;
+    height: 18px;
+}

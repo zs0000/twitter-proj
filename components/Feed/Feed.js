@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../../utils/supabaseClient'
 import PostBox from "../PostBox/PostBox"
 import Sidebar from "../Sidebar/Sidebar"
+import FeedContent from "../FeedContent/FeedContent"
 
 export default function Feed({ session }){
 
@@ -96,6 +97,7 @@ export default function Feed({ session }){
            <div className={s.content}>
 
           <PostBox/>
+          <FeedContent/>
            </div>
            <div className={s.explorecontainer}>
 
