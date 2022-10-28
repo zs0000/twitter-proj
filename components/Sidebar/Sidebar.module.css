@@ -1,9 +1,9 @@
 .main{
-    @apply w-full h-full flex flex-col items-end pr-8;
+    @apply w-full h-full flex flex-col items-end pr-8 ;
 }
 
 .svgcontainer {
-    @apply flex ;
+    @apply flex hover:bg-[#f0ecec] hover:transform duration-200 rounded-full hover:cursor-pointer;
 }
 
 .svg{ 
@@ -14,6 +14,48 @@
 .twittersvg{ 
     @apply my-4; 
     
-   height: 26px;
-   width: 26px;
+   height: 30px;
+   width: 30px;
+}
+
+
+@screen xs {
+    .svglabel{
+        @apply hidden;
+    }
+}
+
+@screen sm {
+
+}
+
+@screen md {
+ 
+   
+    
+}
+
+@screen lg {
+  
+}
+
+@screen xl {
+    .svglabel{
+        display:block;
+    }
+    .svglabelcontainer{
+        @apply  flex justify-start items-center mt-1 tracking-wider text-lg ;
+        
+    }
+    .svglabel{
+        @apply ml-3;
+        width: 40%;
+    }
+    .svgcontainer{
+        width:40%;
+    }
+}
+
+@screen 2xl {
+
 }

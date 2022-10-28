@@ -40,8 +40,9 @@ export default function FeedContent(){
 
 
     return(
-        <>{posts.map((post)=>(
+        <div className={s.main}>
+            {posts.map((post)=>(
             <PostCard post={post}/>
-        ))}</>
+        ))}</div>
     )
 }

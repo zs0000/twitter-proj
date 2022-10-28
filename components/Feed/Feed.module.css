@@ -4,16 +4,80 @@
 
 .sidebarcontainer{
     @apply h-full min-h-screen;
-    width: 18%;
+   
 }
 
 .content{
     @apply h-full min-h-screen border-l border-r border-[#f0f2f8] mt-3;
-    width: 64%;
+   
 }
 
 .explorecontainer{
     @apply h-full min-h-screen;
-    width: 18%;
+    
+}
+.replymodal{
+    @apply z-40 absolute w-screen h-screen overflow-hidden;
 }
 
+.backgroundcontainer{
+    @apply   w-full h-full bg-[#000000] bg-opacity-40 ;
+}
+
+.modalcontainer {
+    @apply w-full h-full z-50 absolute flex items-center justify-center;
+
+}
+
+.modal{
+    @apply px-20 py-20 absolute z-50  bg-primary;
+    height: 200px;
+    width:200px;
+}
+@screen xs {
+
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .content{
+        width: 64%;
+    }
+    .explorecontainer{
+        width: 18%;
+    }
+    .sidebarcontainer{
+        width: 18%;
+    }
+}
+
+@screen lg {
+    .content{
+        width: 54%;
+    }
+    .explorecontainer{
+        width: 23%;
+    }
+    .sidebarcontainer{
+        width: 23%;
+    }
+}
+
+@screen xl {
+    .content{
+        width: 32%;
+    }
+    .explorecontainer{
+        width: 37%;
+    }
+    .sidebarcontainer{
+        width: 31%;
+    }
+}
+
+@screen 2xl {
+
+}

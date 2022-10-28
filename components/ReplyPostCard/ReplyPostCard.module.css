@@ -1,0 +1,102 @@
+.replymodal{
+    @apply z-40 absolute w-screen h-screen overflow-hidden;
+}
+
+.backgroundcontainer{
+    @apply   w-full h-full bg-[#000000] bg-opacity-40 flex flex-col items-center justify-center;
+}
+
+.modalcontainer {
+    @apply  h-full flex flex-col items-center justify-center z-50 ;
+
+}
+
+.modal{
+    @apply px-20 py-20 absolute z-50  bg-primary;
+    height: 200px;
+    width:200px;
+}
+.postcontainer {
+    @apply w-full flex flex-row pb-1 pt-2  hover:cursor-pointer bg-background;
+}
+.secondarypostcontainer {
+    @apply w-full flex   pb-2 pl-8  hover:cursor-pointer text-sm bg-background;
+}
+
+.exitbuttoncontainer {
+    @apply w-full bg-background rounded-t-2xl;
+}
+
+.exitbutton{
+    @apply p-5;
+}
+.profilepicture{
+    @apply rounded-full;
+
+}
+.picturecontainer{
+    @apply ml-4;
+}
+
+.sidecontainer {
+    width: 70px;
+}
+
+.primarycontainer{
+    @apply w-full mx-4;
+}
+
+.authorcontainer{
+    @apply w-full flex flex-row ;
+}
+
+.author {
+   @apply font-bold mr-1 hover:underline hover:cursor-pointer; 
+}
+
+.authorhandle{
+    @apply text-[#717274] hover:cursor-pointer;
+} 
+
+.replyingto {
+    @apply text-[#b8b6b6];
+}
+
+.replyhandle{
+    @apply hover:cursor-pointer text-primary;
+}
+
+@screen xs {
+
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .postcontainer{
+        @apply flex items-center justify-center;
+        
+    }
+    .modalcontainer {
+        width:64%;
+        height:100%;
+    
+    }
+    .replyingto {
+        @apply text-[#b8b6b6];
+    width:60%;
+    }
+    
+}
+
+@screen lg {
+
+}
+@screen xl {
+}
+
+@screen 2xl {
+
+}
