@@ -8,9 +8,11 @@ export const PostContextProvider = props => {
     const [userReplying, setUserReplying] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
+    const [recentPost, setRecentPost] = useState(null);
+
 
 return(
-    <PostContext.Provider value={{ userReplying, setUserReplying,replyPost, setReplyPost,isOpen, setIsOpen}}>
+    <PostContext.Provider value={{ userReplying, recentPost, setRecentPost, setUserReplying,replyPost, setReplyPost,isOpen, setIsOpen}}>
         {props.children}
     </PostContext.Provider>);
     

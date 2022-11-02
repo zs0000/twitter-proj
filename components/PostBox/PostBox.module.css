@@ -29,23 +29,23 @@
 }
 
 .textbox{
-    @apply w-full outline-none focus:pt-10 flex-wrap flex h-full;
+    @apply w-full outline-none focus:pt-10 flex-wrap flex h-full resize-none;
 }
 
 .bottombarcontainer{
     @apply flex flex-col;
 }
 .svgcontainer {
-    @apply flex;
+    @apply flex  rounded-full hover:bg-primary hover:bg-opacity-20;
 }
 
 .postenhancementscontainer{
-    @apply flex flex-row;
+    @apply flex flex-row pt-2;
 }
 
 .svg{ 
-    @apply my-4; 
+    @apply m-2 hover:cursor-pointer hover:fill-primary; 
     color: #1e9cf1;
-   height: 26px;
-   width: 26px;
+   height: 18px;
+   width: 18px;
 }

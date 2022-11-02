@@ -1,9 +1,9 @@
 .main{
-    @apply w-full h-full flex flex-col items-end pr-8 ;
+    @apply w-full h-full flex flex-col items-end pr-4 ;
 }
 
 .svgcontainer {
-    @apply flex hover:bg-[#f0ecec] hover:transform duration-200 rounded-full hover:cursor-pointer;
+    @apply flex hover:bg-[#f0ecec] px-4 hover:transform duration-200 rounded-full hover:cursor-pointer;
 }
 
 .svg{ 

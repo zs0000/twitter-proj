@@ -6,8 +6,9 @@ import Sidebar from "../Sidebar/Sidebar"
 import FeedContent from "../FeedContent/FeedContent"
 import PostCard from "../PostCard/PostCard"
 import { PostContext } from "../../context/PostContext"
-import { useQueryClient } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import ReplyPostCard from "../ReplyPostCard/ReplyPostCard"
+import useFeedContent from "../../hooks/useFeedContent"
 
 export default function Feed({ session }){
 
@@ -21,12 +22,14 @@ export default function Feed({ session }){
   const [modalVisible, setModalVisible] = useState(false);
   const {isOpen, setIsOpen} = useContext(PostContext);
   const {replyPost, setReplyPost} = useContext(PostContext);
-  
+
   useEffect(() => {
     getProfile()
 
   }, [session])
-  
+ 
+
+
 
   async function getCurrentUser() {
     const {
@@ -41,39 +44,36 @@ export default function Feed({ session }){
     if (!session?.user) {
       throw new Error('User not logged in')
     }
-    console.log(session.user)
+
     return session.user
   }
-  async function getFeedContent(){
-    try {
-        setLoading(true)
-        let {  data, error, status } = await supabase
-        .from("posts")
-        .select("author, author_handle, posted_at, post_text,id")
-
-        if (error && status !== 406){
-            throw error
-        }
-
-        if(data){
-            setPosts(data)
-           
-        }
-
-    } catch (err) {
-        console.error(err.message)
-    } finally {
-        setLoadingPosts(false)
-       
+  const getFeedContented = async () => {
+    const { data, error } =  await supabase
+    .from("posts")
+    .select("author, author_handle, posted_at, post_text,id, post_id")
+      
+  
+    if(error) {
+      console.error(error.message)
     }
-}
+  
+    if(!data) {
+      console.error("feed not found")
+    }
+    console.log(data)
+    setPosts(data)
+    return data
+  }
+  const { isLoading, isError, data, error } = useQuery({ queryKey: ['feedContent'], queryFn: getFeedContented })
+  console.log(data)
+
 
   async function getProfile() {
     try {
       setLoading(true)
       const user = await getCurrentUser()
-      const FeedContent = await getFeedContent();
-      
+      const FeedContent = await getFeedContented();
+      console.log(FeedContent)
 
       let { data, error, status } = await supabase
         .from('profiles')
@@ -141,7 +141,7 @@ export default function Feed({ session }){
 
           <PostBox/>
           {posts.map((post)=>(
-            <PostCard key={post.id} post={post}  />
+            <PostCard key={post.id}  post={post}  />
           ))}
            </div>
            <div className={s.explorecontainer}>

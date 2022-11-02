@@ -7,7 +7,7 @@
 }
 
 .modalcontainer {
-    @apply  h-full flex flex-col items-center justify-center z-50 ;
+    @apply  h-full flex flex-col items-center justify-start z-50 pt-16 ;
 
 }
 
@@ -20,7 +20,7 @@
     @apply w-full flex flex-row pb-1 pt-2  hover:cursor-pointer bg-background;
 }
 .secondarypostcontainer {
-    @apply w-full flex   pb-2 pl-8  hover:cursor-pointer text-sm bg-background;
+    @apply w-full flex flex-row hover:cursor-pointer text-sm bg-background;
 }
 
 .exitbuttoncontainer {
@@ -35,15 +35,50 @@
 
 }
 .picturecontainer{
-    @apply ml-4;
+    @apply ml-4 h-full ;
 }
 
 .sidecontainer {
+   @apply h-full;
     width: 70px;
 }
+.svgcontainer {
+    @apply flex  rounded-full hover:bg-primary hover:bg-opacity-20;
+}
 
+.postenhancementscontainer{
+    @apply flex flex-row pt-16 bg-background w-full pb-2 rounded-b-2xl;
+    padding-left: 3.5rem;
+}
+
+.svg{ 
+    @apply m-2 hover:cursor-pointer hover:fill-primary; 
+    color: #1e9cf1;
+   height: 18px;
+   width: 18px;
+}
 .primarycontainer{
     @apply w-full mx-4;
+}
+
+
+.buttoncontainer{
+    @apply w-full pr-4 flex justify-end;
+}
+
+.replybutton {
+    @apply py-1 px-4 bg-primary text-background font-semibold rounded-full;
+}
+
+.replycontainer {
+    @apply w-full bg-background flex flex-row pr-4;
+}
+
+.replytextarea{
+    @apply w-full outline-none pt-3 pl-4 overflow-y-visible resize-none text-lg;
+    height: auto;
+    scroll-behavior: smooth;
+   
 }
 
 .authorcontainer{
@@ -59,7 +94,8 @@
 } 
 
 .replyingto {
-    @apply text-[#b8b6b6];
+    @apply text-[#b8b6b6] w-full py-4;
+    padding-left: 4.7rem;
 }
 
 .replyhandle{

@@ -2,7 +2,7 @@ import s from "./PostCard.module.css"
 import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
 import ReplyModal from "../ReplyModal/ReplyModal"
-
+import Link from 'next/link'
 import {useContext, useState} from "react"
 import { useRouter } from "next/router"
 import { PostContext } from "../../context/PostContext"
@@ -14,7 +14,7 @@ export default function PostCard({post}){
 
     const router = useRouter();
     const queryClient = useQueryClient();
-    
+
 
 
     const handleReplyModal = async({post}) => {
@@ -29,18 +29,27 @@ export default function PostCard({post}){
         
     
     }
-
+    const tempPostStorage = {};
     const [loading, setLoading] = useState(true);
     const {replyPost, setReplyPost} = useContext(PostContext);
     const {isOpen, setIsOpen} = useContext(PostContext);
     const [recentPost, setRecentPost] = useState(null)
-    const handleCachePost = ({post}) =>{
-        setRecentPost(post)
-        console.log(recentPost)
+
+    const handleNavigateToAuthorsPage = (author_handle) => {
+        router.push(`/user/${author_handle}`)
     }
-   
+
+    const handleNavigateToStatusPage = async({post}) => {
+        try {
+           
+        
+        router.push(`/user/${post.author_handle}/status/${post.post_id}`)
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
     return(
-    <div className={s.postcontainer}>
+    <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({post})}>
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
             <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
@@ -48,12 +57,12 @@ export default function PostCard({post}){
         </div>
         <div className={s.primarycontainer}>
             <div className={s.authorcontainer}>
-                <span className={s.author}>
-                    {post.author}
-                </span>
-                <span className={s.authorhandle}>
+                <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle} >
+                    {post.author} 
+                </button>
+                <button onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle}>
                     @{post.author_handle}
-                </span>
+                </button>
             </div>
             <div className={s.posttextcontainer}>
                 {post.post_text}
