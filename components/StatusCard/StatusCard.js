@@ -1,4 +1,4 @@
-import s from "./PostCard.module.css"
+import s from "./StatusCard.module.css"
 import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
 import ReplyModal from "../ReplyModal/ReplyModal"
@@ -9,7 +9,7 @@ import { PostContext } from "../../context/PostContext"
 import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { supabase } from "../../utils/supabaseClient"
 
-export default function PostCard({post}){
+export default function StatusCard({post}){
 
 
     const router = useRouter();
@@ -43,31 +43,24 @@ export default function PostCard({post}){
         router.push(`/user/${author_handle}`)
     }
 
-    const handleNavigateToStatusPage = async({post}) => {
-        try {
-           
-        setRecentPost(post.post_id)
-        router.push(`/user/${post.author_handle}/status/${post.post_id}`)
-        } catch (err) {
-            console.error(err.message)
-        }
-    }
+
     return(
-    <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({post})}>
+    <div className={s.postcontainer} >
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
             <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
             </div>
-        </div>
-        <div className={s.primarycontainer}>
             <div className={s.authorcontainer}>
-                <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle} >
+                <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.author} >
                     {post.author} 
                 </button>
                 <button onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle}>
                     @{post.author_handle}
                 </button>
             </div>
+        </div>
+        <div className={s.primarycontainer}>
+            
             <div className={s.posttextcontainer}>
                 {post.post_text}
             </div>

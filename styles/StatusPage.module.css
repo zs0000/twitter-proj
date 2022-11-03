@@ -1,0 +1,69 @@
+
+.content{
+    @apply h-full min-h-screen border-l border-r border-[#f0f2f8] mt-3;
+   
+}
+
+.homenavigatebar {
+    @apply w-full flex flex-row hover:cursor-pointer;
+    height: 50px;
+}
+
+.navtext {
+    @apply text-xl font-bold pl-8;
+}
+
+.navsvg {
+    @apply mt-2 ml-2;
+    width: 35px;
+    height: 20px;
+}
+
+
+@screen xs {
+
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .content{
+        width: 64%;
+    }
+    .explorecontainer{
+        width: 18%;
+    }
+    .sidebarcontainer{
+        width: 18%;
+    }
+}
+
+@screen lg {
+    .content{
+        width: 54%;
+    }
+    .explorecontainer{
+        width: 23%;
+    }
+    .sidebarcontainer{
+        width: 23%;
+    }
+}
+
+@screen xl {
+    .content{
+        width: 32%;
+    }
+    .explorecontainer{
+        width: 37%;
+    }
+    .sidebarcontainer{
+        width: 31%;
+    }
+}
+
+@screen 2xl {
+
+}

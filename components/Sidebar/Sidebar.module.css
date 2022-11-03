@@ -1,11 +1,18 @@
 .main{
-    @apply w-full h-full flex flex-col items-end pr-4 ;
+    @apply w-full min-h-screen flex flex-col pr-4 ;
 }
 
 .svgcontainer {
-    @apply flex hover:bg-[#f0ecec] px-4 hover:transform duration-200 rounded-full hover:cursor-pointer;
+    @apply flex hover:bg-[#f0ecec] px-4  hover:transform duration-200 rounded-full hover:cursor-pointer;
 }
 
+.itemscontainer{
+    @apply flex flex-col fixed items-end w-full;
+}
+.main{
+    @apply h-full min-h-screen;
+   
+}
 .svg{ 
     @apply my-4; 
    height: 26px;
@@ -19,9 +26,18 @@
 }
 
 
+
+
+
 @screen xs {
     .svglabel{
         @apply hidden;
+    }
+    .main{
+        @apply hidden;
+    }
+    .itemscontainer{
+        width: 18%;
     }
 }
 
@@ -30,13 +46,25 @@
 }
 
 @screen md {
- 
-   
+    .main{
+        @apply block;
+        width: 18%;
+    }
+    .itemscontainer{
+        width: 18%;
+    }
     
 }
 
 @screen lg {
+    .main{
+        width: 23%;
+    }
+    .itemscontainer{
+        width: 27%;
+    }
   
+    
 }
 
 @screen xl {
@@ -53,6 +81,12 @@
     }
     .svgcontainer{
         width:40%;
+    }
+    .main{
+        width: 31%;
+    }
+    .itemscontainer{
+        width: 30%;
     }
 }
 

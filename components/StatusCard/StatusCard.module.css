@@ -1,5 +1,5 @@
 .postcontainer {
-    @apply w-full h-full flex flex-row pb-1 pt-4 hover:cursor-pointer border-[#f0f2f8]  border-b hover:bg-[#f8f6f6] hover:transition-transform duration-200; 
+    @apply w-full h-full flex flex-col pb-1 pt-4 ; 
 }
 
 .profilepicture{
@@ -11,19 +11,27 @@
 }
 
 .sidecontainer {
-    width: 70px;
+    @apply flex flex-row pb-2;
+    
 }
 
 .primarycontainer{
     @apply w-full mx-4;
 }
 
+.posttextcontainer{
+    
+    font-size: 1.3rem;
+    font-weight: 400
+}
+
+
 .authorcontainer{
-    @apply w-full flex flex-row ;
+    @apply flex flex-col items-start pl-2 pt-1;
 }
 
 .author {
-   @apply font-bold mr-1 hover:underline hover:cursor-pointer; 
+   @apply font-semibold mr-1 hover:underline leading-tight hover:cursor-pointer; 
 }
 
 .authorhandle{

@@ -9,6 +9,8 @@ import { PostContext } from "../../context/PostContext"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import ReplyPostCard from "../ReplyPostCard/ReplyPostCard"
 import useFeedContent from "../../hooks/useFeedContent"
+import Layout from "../Layout/Layout"
+import Head from "next/head"
 
 export default function Feed({ session }){
 
@@ -126,7 +128,10 @@ export default function Feed({ session }){
   }
 
     return(
-        <div className={s.main}>
+        <Layout>
+          <Head>
+            <title>Twitterd</title>
+          </Head>
           {isOpen ? 
           <ReplyPostCard replyPost={replyPost}  />
 
@@ -134,19 +139,20 @@ export default function Feed({ session }){
           <></>
           }
           
-          <div className={s.sidebarcontainer}>
-          <Sidebar/>
-          </div>
+          
            <div className={s.content}>
 
           <PostBox/>
-          {posts.map((post)=>(
+          {loading === false ? posts.map((post)=>(
             <PostCard key={post.id}  post={post}  />
-          ))}
+          )) : 
+          <>
+          Fetching Posts...
+          </>}
            </div>
            <div className={s.explorecontainer}>
           
            </div>
-        </div>
+        </Layout>
     )
 }
