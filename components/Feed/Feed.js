@@ -25,12 +25,13 @@ export default function Feed({ session }){
   const {isOpen, setIsOpen} = useContext(PostContext);
   const {replyPost, setReplyPost} = useContext(PostContext);
 
+  const [posted, setPosted] = useState(null);
+
   useEffect(() => {
     getProfile()
 
-  }, [session])
+  }, [session, posted])
  
-
 
 
   async function getCurrentUser() {
@@ -62,20 +63,20 @@ export default function Feed({ session }){
     if(!data) {
       console.error("feed not found")
     }
-    console.log(data)
+ 
     setPosts(data)
     return data
   }
   const { isLoading, isError, data, error } = useQuery({ queryKey: ['feedContent'], queryFn: getFeedContented })
-  console.log(data)
 
 
+  //Feed content fetched here - will optimize this in future
   async function getProfile() {
     try {
       setLoading(true)
       const user = await getCurrentUser()
       const FeedContent = await getFeedContented();
-      console.log(FeedContent)
+   
 
       let { data, error, status } = await supabase
         .from('profiles')
@@ -142,9 +143,9 @@ export default function Feed({ session }){
           
            <div className={s.content}>
 
-          <PostBox/>
+          <PostBox setPosted={setPosted}  posted={posted}/>
           {loading === false ? posts.map((post)=>(
-            <PostCard key={post.id}  post={post}  />
+            <PostCard key={post.post_id}  post={post}  />
           )) : 
           <>
           Fetching Posts...

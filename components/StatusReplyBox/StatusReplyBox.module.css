@@ -1,0 +1,41 @@
+.picturecontainer{
+    @apply pt-4 pl-4;
+}
+
+.profilepic{
+    @apply rounded-full;
+
+}
+
+.container {
+    @apply w-full  flex flex-row   border-b border-[#f0f2f8]  items-center;
+}
+
+.leftsidecontainer{
+    @apply bg-background flex items-center justify-center pr-2;
+}
+
+.textareacontainer {
+    @apply h-full  ;
+    width: 80%;
+}
+
+.buttoncontainer{ 
+
+    @apply h-full mx-2  ;
+   
+}
+.button{
+    @apply  font-bold tracking-tight  bg-[#8bc7ff]  hover:bg-primary text-background rounded-3xl ;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    padding-left: 1rem;
+    padding-right:1rem;
+    font-size: 0.95rem;
+}
+
+.textbox{
+    @apply w-full flex  resize-none outline-none pt-4 px-2;
+    font-size: 1.35rem;
+    font-weight: 400
+}

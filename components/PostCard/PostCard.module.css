@@ -41,7 +41,13 @@
 }
 
 .svg{
-    @apply hover:bg-[#9acdfa] hover:bg-opacity-40 rounded-full;
+    @apply hover:bg-[#9acdfa] hover:bg-opacity-40 rounded-full mr-2;
     width: 18px;
     height: 18px;
+}
+
+.replycount{
+    @apply text-[#b1acac];
+    font-size: 0.85rem;
+    margin-top: -0.15rem;
 }

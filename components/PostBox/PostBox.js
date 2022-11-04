@@ -3,7 +3,7 @@ import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
 import {useState, useEffect} from "react"
 import { supabase } from '../../utils/supabaseClient'
-export default function PostBox({ session }){
+export default function PostBox({ session, posted, setPosted }){
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
     const [firstName, setFirstName] = useState(null)
@@ -18,6 +18,8 @@ export default function PostBox({ session }){
     const [signedUp, setSignedUp] = useState(null)
 
     const [postText, setPostText] = useState(null);
+
+    
     useEffect(()=>{
         getProfile()
     },[session])
@@ -71,6 +73,7 @@ export default function PostBox({ session }){
         } catch (error) {
           alert(error.message)
         } finally {
+         
           setLoading(false)
         }
       }
@@ -80,7 +83,7 @@ export default function PostBox({ session }){
           setLoading(true)
           const user = await getCurrentUser()
           const inputs = {
-            author_id: user.id,
+            id: user.id,
             author_handle:username,
             author: firstName + " " + lastName,
             post_text:postText,
@@ -95,6 +98,8 @@ export default function PostBox({ session }){
         } catch (err) {
           console.error(err.message)
         }finally{
+          setPosted(true);
+          setPostText('')
           setLoading(false)
         }
       }

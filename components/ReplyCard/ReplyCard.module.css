@@ -1,0 +1,59 @@
+.postcontainer {
+    @apply w-full h-full tracking-tight flex flex-row pt-2 hover:cursor-pointer border-[#f0f2f8]  border-b hover:bg-[#f8f6f6] hover:transition-transform duration-200; 
+    font-size: 0.95rem;
+}
+
+.profilepicture{
+    @apply rounded-full;
+
+}
+.picturecontainer{
+    @apply ml-3;
+}
+
+.sidecontainer {
+    @apply h-full ;
+    width: 70px;
+}
+
+.primarycontainer{
+    @apply w-full mx-4;
+}
+
+.authorcontainer{
+    @apply w-full flex flex-row ;
+}
+
+.author {
+   @apply font-semibold mr-1 hover:underline hover:cursor-pointer;
+   
+}
+
+.authorhandle{
+    @apply text-[#a8a9ac] hover:cursor-pointer;
+    font-size: 0.95rem;
+} 
+
+.interactionsbar{
+    @apply flex flex-row w-full justify-evenly  pt-3 ;
+}
+
+.svgcontainer{
+    @apply flex justify-start items-start;
+    width:25%;
+    height:30px;
+}
+
+.svg{
+    @apply hover:bg-[#9acdfa] hover:bg-opacity-40 rounded-full;
+    width: 18px;
+    height: 18px;
+}
+
+.replyingto{
+    @apply text-[#b1aeae];
+}
+
+.replyingtohandle{
+    @apply text-primary hover:underline;
+}

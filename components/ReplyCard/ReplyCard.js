@@ -1,89 +1,50 @@
-import s from "./StatusCard.module.css"
-import Image from "next/image"
+import s from "./ReplyCard.module.css"
 import anonyuser from "../../public/anonyuser.jpg"
-import ReplyModal from "../ReplyModal/ReplyModal"
-import Link from 'next/link'
-import {useContext, useState} from "react"
-import { useRouter } from "next/router"
-import { PostContext } from "../../context/PostContext"
-import { useQueryClient, useQuery } from "@tanstack/react-query"
-import { supabase } from "../../utils/supabaseClient"
-import dateFormat, { masks } from "dateformat";
-export default function StatusCard({post}){
+import Image from "next/image"
+import { useState } from "react"
+export default function ReplyCard({reply}){
 
+    console.log(reply);
 
-    const router = useRouter();
-    const queryClient = useQueryClient();
-
-
-    //https://stackoverflow.com/questions/66306667/prevent-event-from-propagating-to-children 
-
-    //changed method to onClickCapture - need to "intercept the events in the capturing phase"
-    // then stop propagation
-    const handleReplyModal = async({post},e) => {
-        e.stopPropagation();
-       console.log(post)
-        setReplyPost(post)
-       if(post !== null){
-        setLoading(false)
-        setIsOpen(true)
-       }
-
-       
-        
-    
-    }
-    const tempPostStorage = {};
-    const [loading, setLoading] = useState(true);
-    const {replyPost, setReplyPost} = useContext(PostContext);
-    const {isOpen, setIsOpen} = useContext(PostContext);
     const [recentPost, setRecentPost] = useState(null)
 
     const handleNavigateToAuthorsPage = (author_handle) => {
         router.push(`/user/${author_handle}`)
     }
 
-
+    const handleNavigateToStatusPage = async({post}) => {
+        try {
+           
+        setRecentPost(post.post_id)
+        router.push(`/user/${post.author_handle}/status/${post.post_id}`)
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
     return(
-    <div className={s.postcontainer} >
+        <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({reply})}>
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
-            <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
-            </div>
-            <div className={s.authorcontainer}>
-                <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.author} >
-                    {post ? post.author : ""} 
-                </button>
-                <button onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle}>
-                    @{post ? post.author_handle : ""}
-                </button>
+            <Image src={anonyuser} className={s.profilepicture} width={45} height={45} />
             </div>
         </div>
         <div className={s.primarycontainer}>
-            
+            <div className={s.authorcontainer}>
+                <button  onClick={() => handleNavigateToAuthorsPage(reply.author_handle)}  className={s.author} >
+                    {reply.reply_author} 
+                </button>
+                <button onClick={() => handleNavigateToAuthorsPage(reply.author_handle)}  className={s.authorhandle}>
+                    @{reply.reply_author_handle}
+                </button>
+            </div>
+            <span className={s.replyingto}>Replying to <span className={s.replyingtohandle}>@{reply.reply_author_handle}</span></span>
             <div className={s.posttextcontainer}>
-                {post  ? post.post_text : ""}
+                {reply.reply_text}
             </div>
-            <div className={s.metadatacontainer}>
-            <span>{post ? dateFormat(post.posted_at, "h:MM TT - mmm dS, yyyy") : ""}</span>
-            <span> - {post ? post.post_environment : ""}</span>
-            </div>
-           
-            <div className={s.interactions}>
-                <span className={s.interaction}>
-                    0 Retweets
-                </span>
-                <span className={s.interaction}>
-                    0 Quote tweets
-                </span>
-                <span className={s.interaction}>
-                    0 likes
-                </span>
-              </div>
             <div className={s.interactionsbar}>
               
              
-                <div onClickCapture={(e) => handleReplyModal({post},e)} className={s.svgcontainer}>
+                <div onClickCapture={(e) => handleReplyModal({reply},e)} className={s.svgcontainer}>
                 <svg fill="#536471" viewBox="0 0 24 24" aria-hidden="true" className={s.svg}><g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g></svg>
                 </div>
                 <div  className={s.svgcontainer}><svg fill="#536471" viewBox="0 0 24 24" aria-hidden="true" className={s.svg}><g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g></svg></div>

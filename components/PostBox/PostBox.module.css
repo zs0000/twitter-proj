@@ -29,7 +29,7 @@
 }
 
 .textbox{
-    @apply w-full outline-none focus:pt-10 flex-wrap flex h-full resize-none;
+    @apply w-full outline-none pt-10 flex-wrap flex h-full resize-none;
 }
 
 .bottombarcontainer{
