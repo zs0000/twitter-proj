@@ -2,9 +2,11 @@ import s from "./ReplyCard.module.css"
 import anonyuser from "../../public/anonyuser.jpg"
 import Image from "next/image"
 import { useState } from "react"
+import { useRouter } from "next/router";
 export default function ReplyCard({reply}){
 
     console.log(reply);
+    const router = useRouter()
 
     const [recentPost, setRecentPost] = useState(null)
 
@@ -30,10 +32,10 @@ export default function ReplyCard({reply}){
         </div>
         <div className={s.primarycontainer}>
             <div className={s.authorcontainer}>
-                <button  onClick={() => handleNavigateToAuthorsPage(reply.author_handle)}  className={s.author} >
+                <button  onClick={() => handleNavigateToAuthorsPage(reply.reply_author_handle)}  className={s.author} >
                     {reply.reply_author} 
                 </button>
-                <button onClick={() => handleNavigateToAuthorsPage(reply.author_handle)}  className={s.authorhandle}>
+                <button onClick={() => handleNavigateToAuthorsPage(reply.reply_author_handle)}  className={s.authorhandle}>
                     @{reply.reply_author_handle}
                 </button>
             </div>

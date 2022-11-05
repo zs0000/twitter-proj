@@ -21,6 +21,10 @@
     width: 15%;
 }
 
+.fileupload{
+    @apply hidden;
+}
+
 .topbar{
     @apply w-full  bg-background font-bold pl-4 text-xl; 
 }

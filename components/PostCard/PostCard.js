@@ -62,8 +62,10 @@ export default function PostCard({post}){
     const {isOpen, setIsOpen} = useContext(PostContext);
     const [recentPost, setRecentPost] = useState(null)
 
-    const handleNavigateToAuthorsPage = (author_handle) => {
+    const handleNavigateToAuthorsPage = (author_handle, e) => {
+        
         router.push(`/user/${author_handle}`)
+        e.stopPropagation();
     }
 
     const handleNavigateToStatusPage = async({post}) => {
@@ -84,15 +86,15 @@ export default function PostCard({post}){
         </div>
         <div className={s.primarycontainer}>
             <div className={s.authorcontainer}>
-                <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle} >
-                    {post.author} 
+                <button  onClickCapture={(e) => handleNavigateToAuthorsPage(post.author_handle,e)}  className={s.author} >
+                    {post ? post.author : ""} 
                 </button>
-                <button onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.authorhandle}>
-                    @{post.author_handle}
+                <button onClickCapture={(e) => handleNavigateToAuthorsPage(post.author_handle,e)}  className={s.authorhandle}>
+                    @{post ? post.author_handle : ""}
                 </button>
             </div>
             <div className={s.posttextcontainer}>
-                {post.post_text}
+                {post ? post.post_text : ""}
             </div>
             <div className={s.interactionsbar}>
               

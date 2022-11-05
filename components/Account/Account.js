@@ -81,7 +81,7 @@ export default function Account({ session }) {
   async function updateProfile({ username, website, avatar_url, firstname, lastname, bio,  living_in, completed_sign_up }) {
     try {
       setLoading(true)
-      setSignedUp(true)
+     
       const user = await getCurrentUser()
 
       const updates = {
@@ -95,7 +95,7 @@ export default function Account({ session }) {
 
         living_in: location,
 
-        completed_sign_up: signedUp,
+        completed_sign_up: true,
         updated_at: new Date(),
       }
 
@@ -107,6 +107,7 @@ export default function Account({ session }) {
     } catch (error) {
       alert(error.message)
     } finally {
+      setSignedUp(true)
       setLoading(false)
     }
   }

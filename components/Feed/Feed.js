@@ -11,6 +11,7 @@ import ReplyPostCard from "../ReplyPostCard/ReplyPostCard"
 import useFeedContent from "../../hooks/useFeedContent"
 import Layout from "../Layout/Layout"
 import Head from "next/head"
+import { UserContext } from "../../context/UserContext"
 
 export default function Feed({ session }){
 
@@ -18,20 +19,18 @@ export default function Feed({ session }){
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadingPosts, setLoadingPosts] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const {username, setUsername} = useContext(UserContext)
+  const {firstName , setFirstName} = useContext(UserContext)
+  const {lastName , setLastName} = useContext(UserContext)
+  const {userID, setUserID} = useContext(UserContext)
+
   const {isOpen, setIsOpen} = useContext(PostContext);
   const {replyPost, setReplyPost} = useContext(PostContext);
 
   const [posted, setPosted] = useState(null);
 
-  useEffect(() => {
-    getProfile()
-
-  }, [session, posted])
- 
+  
 
 
   async function getCurrentUser() {
@@ -47,7 +46,7 @@ export default function Feed({ session }){
     if (!session?.user) {
       throw new Error('User not logged in')
     }
-
+    setUserID(session.user.id)
     return session.user
   }
   const getFeedContented = async () => {
@@ -80,7 +79,7 @@ export default function Feed({ session }){
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, firstname, lastname`)
         .eq('id', user.id)
         .single()
 
@@ -89,9 +88,10 @@ export default function Feed({ session }){
       }
 
       if (data) {
+        console.log(data)
         setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        setFirstName(data.firstname)
+        setLastName(data.lastname)
         
        
       }
@@ -102,32 +102,11 @@ export default function Feed({ session }){
       setLoading(false)
     }
   }
+  useEffect(() => {
+    getProfile()
 
-  async function updateProfile({ username, website, avatar_url }) {
-    try {
-      setLoading(true)
-      const user = await getCurrentUser()
-
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        avatar_url,
-        updated_at: new Date(),
-      }
-
-      let { error } = await supabase.from('profiles').upsert(updates)
-
-      if (error) {
-        throw error
-      }
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
+  }, [session, posted])
+ 
     return(
         <Layout>
           <Head>
@@ -143,7 +122,11 @@ export default function Feed({ session }){
           
            <div className={s.content}>
 
-          <PostBox setPosted={setPosted}  posted={posted}/>
+          {loading === false ? <PostBox 
+          posted={posted}
+          setPosted={setPosted}
+         
+           /> : ""}
           {loading === false ? posts.map((post)=>(
             <PostCard key={post.post_id}  post={post}  />
           )) : 
