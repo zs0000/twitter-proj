@@ -35,11 +35,9 @@ export default function ProfilePage(props){
         getPublicProfileData()
 
         
-        getCurrentUser().then((session)=>{
-            setUserID(session.user.id)
-        }).then(
-            getRelationshipData()
-        )
+        getCurrentUser().then((id)=>{
+            getRelationshipData(id)
+        })
   
         getTweets()
     },[])
@@ -50,14 +48,14 @@ export default function ProfilePage(props){
           data: { session },
           error,
         } = await supabase.auth.getSession()
-        setUserID(session.id)
+        
         if (error) {
           throw error
         }
         if (!session?.user) {
           throw new Error('User not logged in')
         }
-        return session
+        return session.user.id
       }
 
     async function getTweets(){
@@ -98,17 +96,19 @@ export default function ProfilePage(props){
         }
     }
     
-    async function getRelationshipData(){
+    async function getRelationshipData(id){
         try {
-            
+            let t = `${userID}`
             let {data, error} = await supabase
             .from('relationships')
-            .select('*')
-            .eq('follower_id', userID)
+            .select("id")
+            .eq("follower_id", id)
+            .eq("followed_id", profileData.id)
             .single()
+            
 
             if(data){
-      
+                console.log(data)
                     
                         if(data.follower_id == userID){
                             setIsFollowing(true)

@@ -128,7 +128,10 @@ export default function Feed({ session }){
          
            /> : ""}
           {loading === false ? posts.map((post)=>(
-            <PostCard key={post.post_id}  post={post}  />
+            <PostCard 
+            key={post.post_id}
+            post={post}
+            userID={userID}  />
           )) : 
           <>
           Fetching Posts...

@@ -51,3 +51,23 @@
     font-size: 0.85rem;
     margin-top: -0.15rem;
 }
+.retweetoptionsmodal {
+    @apply flex flex-col absolute mt-4 -ml-12 z-50 bg-background px-2 rounded-lg py-1 shadow;
+}
+
+
+.optionsmodal {
+    @apply flex flex-col absolute -ml-12 z-50 bg-background px-2 rounded-lg py-1 shadow;
+}
+
+.optionscontainer {
+    @apply -mt-6 pr-2;
+}
+
+.modaloption{
+    @apply text-xs my-1 hover:bg-lightGray;
+}
+
+.hide {
+    @apply hidden;
+}
