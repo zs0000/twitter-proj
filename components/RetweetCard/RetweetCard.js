@@ -1,4 +1,4 @@
-import s from "./PostCard.module.css"
+import s from "./RetweetCard.module.css"
 import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
 import ReplyModal from "../ReplyModal/ReplyModal"
@@ -10,9 +10,9 @@ import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { supabase } from "../../utils/supabaseClient"
 import { UserContext } from "../../context/UserContext"
 
-export default function PostCard({post}){
+export default function RetweetCard({post, ret}){
 
-    
+   
     const router = useRouter();
     const queryClient = useQueryClient();
     const tempPostStorage = {};
@@ -111,7 +111,6 @@ export default function PostCard({post}){
             console.error(err.message)
         }
     }
-
     async function getPostLikeCount(){
         try {
             let{data, error} = await supabase
@@ -248,18 +247,26 @@ export default function PostCard({post}){
         checkIfLikedTweet()
         checkIfImageTweet()
         getPostReplyCount()
-        getPostLikeCount()
         getRetweetCount()
+        getPostLikeCount()
     },[])
   
     return(
+        <>
+        <span onClickCapture={(e)=> handleNavigateToAuthorsPage(ret.username, e)} className={s.retweetedby}>
+        {ret.firstname} {ret.lastname} retweeted
+        </span>
+            
     <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({post})}>
+        
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
             <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
             </div>
         </div>
-        <div className={s.primarycontainer}>
+        
+        <div className={s.primarycontainer}> 
+        
             <div className={s.authorcontainer}>
                 <button  onClickCapture={(e) => handleNavigateToAuthorsPage(post.author_handle,e)}  className={s.author} >
                     {post ? post.author : ""} 
@@ -329,5 +336,6 @@ export default function PostCard({post}){
         :
         <></>}
     </div>
+    </>
     )
 }

@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useRouter } from "next/router";
 export default function ReplyCard({reply}){
 
-    console.log(reply);
+ 
     const router = useRouter()
 
     const [recentPost, setRecentPost] = useState(null)

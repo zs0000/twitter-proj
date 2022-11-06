@@ -13,56 +13,116 @@ import { UserContext } from "../../../context/UserContext";
 //
 export async function getServerSideProps(context) {
     const { id } = context.query;
-  
+    
 
     return { props: { id } };
   }
 
-
 export default function ProfilePage(props){
-    
+    const router = useRouter();
+    let { id } = router.query
     const [loading, setLoading] = useState(true);
     const [profileData, setProfileData] = useState(null);
+    const [profileID, setProfileID] = useState(null);
     const [posts, setPosts] = useState(null)
     const [isFollowing, setIsFollowing] = useState(false);
+ 
+    const [followers, setFollowers] = useState(null)
+    const [following, setFollowing] = useState(null)
+    
+    const {username, setUsername} = useContext(UserContext)
+    const {firstName , setFirstName} = useContext(UserContext)
+    const {lastName , setLastName} = useContext(UserContext)
     const {userID, setUserID} = useContext(UserContext)
 
-
     let x = [];
-    const router = useRouter();
+ 
 
-    useEffect(()=>{
-        getPublicProfileData()
-
-        
-        getCurrentUser().then((id)=>{
-            getRelationshipData(id)
-        })
-  
-        getTweets()
-    },[])
     
-
     async function getCurrentUser() {
         const {
           data: { session },
           error,
         } = await supabase.auth.getSession()
-        
+    
         if (error) {
           throw error
         }
+    
         if (!session?.user) {
           throw new Error('User not logged in')
         }
-        return session.user.id
+        setUserID(session.user.id)
+        return session.user
       }
 
+      async function getProfile() {
+        try {
+          setLoading(true)
+          const user = await getCurrentUser()
+        
+          let { data, error, status } = await supabase
+            .from('profiles')
+            .select(`username, firstname, lastname`)
+            .eq('id', user.id)
+            .single()
+    
+          if (error && status !== 406) {
+            throw error
+          }
+    
+          if (data) {
+           
+            setUsername(data.username)
+            setFirstName(data.firstname)
+            setLastName(data.lastname)
+           
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+          
+          setLoading(false)
+        }
+      }
+
+    async function getFollowers(tested){
+        try {
+            let {data, error} = await supabase
+            .from("relationships")
+            .select("*")
+            .eq("followed_id", tested)
+
+            if(data){
+                console.log(data)
+                let j = data.length
+                setFollowers(j)
+            }
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
+    async function getFollowing(tested){
+        try {
+            let {data, error} = await supabase
+            .from("relationships")
+            .select("*")
+            .eq("follower_id", tested)
+
+            if(data){
+                console.log(data)
+                let j = data.length
+                setFollowing(j)
+            }
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
     async function getTweets(){
         try {
             let {data, error} = await supabase
             .from("posts")
-            .select("post_text, author, author_handle, posted_at, post_id")
+            .select("post_text, author, author_handle, posted_at, post_id, post_image_url")
             .eq("author_handle", id)
             if(data){
                 setPosts(data)
@@ -74,7 +134,7 @@ export default function ProfilePage(props){
            
         }
     }
-    const id = router.query.id
+
     async function getPublicProfileData(){
         try {
             
@@ -86,6 +146,10 @@ export default function ProfilePage(props){
            
             if(data){
                 setProfileData(data[0])
+                const tested = data[0].id
+                getFollowers(tested)
+                getFollowing(tested)
+                
             }
 
         } catch (err) {
@@ -96,9 +160,9 @@ export default function ProfilePage(props){
         }
     }
     
-    async function getRelationshipData(id){
+    async function getRelationshipData(){
         try {
-            let t = `${userID}`
+          
             let {data, error} = await supabase
             .from('relationships')
             .select("id")
@@ -126,7 +190,7 @@ export default function ProfilePage(props){
         } catch (err) {
             console.error(err.mesage)
         } finally {
-            setLoading(false)
+            
         }
     }
 
@@ -152,6 +216,16 @@ export default function ProfilePage(props){
         }
       }
 
+      
+    useEffect(()=>{
+        getProfile()
+        getPublicProfileData()
+   
+       
+        getTweets()
+        setLoading(false)
+    },[])
+
     return(<Layout>
         <Head>
             <title>
@@ -159,7 +233,7 @@ export default function ProfilePage(props){
                 
             </title>
         </Head>
-        {loading === false ?
+        {loading == false  ?
         <>
         <div className={s.content}>
             <div className={s.homenavbar}>
@@ -228,10 +302,10 @@ export default function ProfilePage(props){
                 </div>
                 <div className={s.followcontainer}>
                 <span className={s.following}>
-                0 Following
+                {following ? following : 0} Following
                 </span>
                 <span className={s.followers}>
-                0 Followers
+                {followers ? followers : 0} Followers
                 </span>
                 </div>
             </div>
@@ -251,7 +325,7 @@ export default function ProfilePage(props){
             </div>
             <div className={s.posts}>
                 {posts ? posts.map((post)=>(
-                    <PostCard key={post ? post.post_id : ""} post={post}/>
+                    <PostCard key={post ? post.post_id : ""} userID={userID} post={post}/>
                 )) : <div>
                         It seem's you haven't made a post yet!
                     </div>}

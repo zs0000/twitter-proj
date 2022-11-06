@@ -1,33 +1,75 @@
 import s from "./ReplyPostCard.module.css"
 import anonyuser from "../../public/anonyuser.jpg"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image"
 import { PostContext } from "../../context/PostContext";
+import { UserContext } from "../../context/UserContext";
+import { supabase } from "../../utils/supabaseClient";
 
 export default function ReplyPostCard({replyPost, user}){
 
   const [replyText,setReplyText] = useState(null);
   const [loading, setLoading] = useState(true);
   const {isOpen, setIsOpen} = useContext(PostContext)
-  
+  const [hasImg, setHasImg] = useState(false)
+
+  const {userID, setUserID} = useContext(UserContext)
+  const {username, setUsername} = useContext(UserContext)
+  const {firstName, setFirstName} = useContext(UserContext)
+  const {lastName, setLastName}= useContext(UserContext)
   async function postReply(){
     try {
       setLoading(true);
       const inputs = {
-        replyText
+        replier_id: userID,
+        reply_text:replyText,
+        reply_author: firstName + " " + lastName,
+        reply_author_handle:username,
+        reply_environment:"Twitter for Desktop",
+        reply_type: "text",
+        reply_to_handle: replyPost.author_handle,
+        reply_to_status:replyPost.post_id
       }
-      
+      let { data, error } = await supabase.from('replies').insert(inputs);
+       setIsOpen(!isOpen)
+       
+      if(error){
+        console.log("Its an error /:")
+        throw error
+      }
+         
     } catch (err) {
       console.error(err.message)
     }finally{
+      setReplyText(null)
       setLoading(false);
     }
   }
+  async function checkForImage(){
+    try {
+        if(replyPost.post_image_url){
+            setHasImg(true)
+            setLoading(false)
+       } else{
+   
+            setHasImg(false)
+            setLoading(false)
+        }
+       
+    } catch (err) {
+        
+    }
+} 
+  
 
   const handleCloseModal = () => {
     setIsOpen(false);
   }
+  useEffect(()=>{
+   
 
+    checkForImage()
+},[replyPost])
 return(
   <div className={s.replymodal}>
   <div className={s.backgroundcontainer}>
@@ -57,7 +99,11 @@ return(
                 </div>
                 
             </div>
-           
+            {hasImg ?<div className={s.imagecontainer}>
+                <Image src={replyPost.post_image_url} onLoad={"https://res.cloudinary.com/repdb/image/upload/v1634675008/testesst.jpg"} width={500} className={s.image} height={500} layout="intrinsic" />
+            </div>
+            : 
+            <></>}
         </div>
        
     </div>
@@ -83,7 +129,7 @@ return(
              <div dir="auto" className={s.svgcontainer}><svg fill='#1e9cf1' viewBox="0 0 24 24" aria-hidden="true" className={s.svg}><g><path d="M-37.9 18c-.1-.1-.1-.1-.1-.2.1 0 .1.1.1.2z"></path><path d="M-37.9 18c-.1-.1-.1-.1-.1-.2.1 0 .1.1.1.2zM18 2.2h-1.3v-.3c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8v.3H7.7v-.3c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8v.3H4.8c-1.4 0-2.5 1.1-2.5 2.5v13.1c0 1.4 1.1 2.5 2.5 2.5h2.9c.4 0 .8-.3.8-.8 0-.4-.3-.8-.8-.8H4.8c-.6 0-1-.5-1-1V7.9c0-.3.4-.7 1-.7H18c.6 0 1 .4 1 .7v1.8c0 .4.3.8.8.8.4 0 .8-.3.8-.8v-5c-.1-1.4-1.2-2.5-2.6-2.5zm1 3.7c-.3-.1-.7-.2-1-.2H4.8c-.4 0-.7.1-1 .2V4.7c0-.6.5-1 1-1h1.3v.5c0 .4.3.8.8.8.4 0 .8-.3.8-.8v-.5h7.5v.5c0 .4.3.8.8.8.4 0 .8-.3.8-.8v-.5H18c.6 0 1 .5 1 1v1.2z"></path><path d="M15.5 10.4c-3.4 0-6.2 2.8-6.2 6.2 0 3.4 2.8 6.2 6.2 6.2 3.4 0 6.2-2.8 6.2-6.2 0-3.4-2.8-6.2-6.2-6.2zm0 11c-2.6 0-4.7-2.1-4.7-4.7s2.1-4.7 4.7-4.7 4.7 2.1 4.7 4.7c0 2.5-2.1 4.7-4.7 4.7z"></path><path d="M18.9 18.7c-.1.2-.4.4-.6.4-.1 0-.3 0-.4-.1l-3.1-2v-3c0-.4.3-.8.8-.8.4 0 .8.3.8.8v2.2l2.4 1.5c.2.2.3.6.1 1z"></path></g></svg><span ></span></div>
              <div dir="auto" className={s.svgcontainer}><svg fill='#1e9cf1' viewBox="0 0 24 24" aria-hidden="true" className={s.svg}><g><path d="M12 14.315c-2.088 0-3.787-1.698-3.787-3.786S9.913 6.74 12 6.74s3.787 1.7 3.787 3.787-1.7 3.785-3.787 3.785zm0-6.073c-1.26 0-2.287 1.026-2.287 2.287S10.74 12.814 12 12.814s2.287-1.025 2.287-2.286S13.26 8.24 12 8.24z"></path><path d="M20.692 10.69C20.692 5.9 16.792 2 12 2s-8.692 3.9-8.692 8.69c0 1.902.603 3.708 1.743 5.223l.003-.002.007.015c1.628 2.07 6.278 5.757 6.475 5.912.138.11.302.163.465.163.163 0 .327-.053.465-.162.197-.155 4.847-3.84 6.475-5.912l.007-.014.002.002c1.14-1.516 1.742-3.32 1.742-5.223zM12 20.29c-1.224-.99-4.52-3.715-5.756-5.285-.94-1.25-1.436-2.742-1.436-4.312C4.808 6.727 8.035 3.5 12 3.5s7.192 3.226 7.192 7.19c0 1.57-.497 3.062-1.436 4.313-1.236 1.57-4.532 4.294-5.756 5.285z"></path></g></svg><span ></span></div>
              <div className={s.buttoncontainer}>
-              <button className={s.replybutton}>Reply</button>
+              <button onClick={() => postReply()} className={s.replybutton}>Reply</button>
              </div>
              </div>
   </div>

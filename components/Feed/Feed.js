@@ -5,6 +5,7 @@ import PostBox from "../PostBox/PostBox"
 import Sidebar from "../Sidebar/Sidebar"
 import FeedContent from "../FeedContent/FeedContent"
 import PostCard from "../PostCard/PostCard"
+import RetweetCard from "../RetweetCard/RetweetCard"
 import { PostContext } from "../../context/PostContext"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import ReplyPostCard from "../ReplyPostCard/ReplyPostCard"
@@ -19,19 +20,21 @@ export default function Feed({ session }){
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadingPosts, setLoadingPosts] = useState(true)
-
+  const [retweets, setRetweets] = useState(null);
+  const [retweeters, setRetweeters] = useState(null)
   const {username, setUsername} = useContext(UserContext)
   const {firstName , setFirstName} = useContext(UserContext)
   const {lastName , setLastName} = useContext(UserContext)
   const {userID, setUserID} = useContext(UserContext)
-
+  const [testIndex, setTestIndex] = useState(0)
   const {isOpen, setIsOpen} = useContext(PostContext);
   const {replyPost, setReplyPost} = useContext(PostContext);
 
   const [posted, setPosted] = useState(null);
 
-  
-
+  const incrementIndex = () => {
+    setTestIndex(testIndex+1)
+  }
 
   async function getCurrentUser() {
     const {
@@ -52,9 +55,9 @@ export default function Feed({ session }){
   const getFeedContented = async () => {
     const { data, error } =  await supabase
     .from("posts")
-    .select("author, author_handle, posted_at, post_text,id, post_id")
+    .select("author, author_handle, posted_at, post_text,id, post_id,post_image_url")
       
-  
+    console.log(data)
     if(error) {
       console.error(error.message)
     }
@@ -66,8 +69,29 @@ export default function Feed({ session }){
     setPosts(data)
     return data
   }
-  const { isLoading, isError, data, error } = useQuery({ queryKey: ['feedContent'], queryFn: getFeedContented })
 
+  async function getRetweets(){
+    try {
+      let {data, error} = await supabase
+      .from("retweets")
+      .select(`
+      profiles(
+        username, firstname, lastname
+      ),
+      posts(
+        *
+      )
+      `)
+      if(data){
+        console.log(data)
+        setRetweets(data)
+
+      
+      }
+    } catch (err) {
+      console.error(err.message)
+    }  console.log(retweets)
+  }
 
   //Feed content fetched here - will optimize this in future
   async function getProfile() {
@@ -88,7 +112,7 @@ export default function Feed({ session }){
       }
 
       if (data) {
-        console.log(data)
+       
         setUsername(data.username)
         setFirstName(data.firstname)
         setLastName(data.lastname)
@@ -103,7 +127,10 @@ export default function Feed({ session }){
     }
   }
   useEffect(() => {
+    setTestIndex(0)
     getProfile()
+    getRetweets()
+
 
   }, [session, posted])
  
@@ -132,6 +159,16 @@ export default function Feed({ session }){
             key={post.post_id}
             post={post}
             userID={userID}  />
+          )) : 
+          <>
+          Fetching Posts...
+          </>}
+          {loading === false ? retweets.map((item)=>(
+             <RetweetCard 
+             ret={item.profiles}
+             key={item.posts.post_id}
+             post={item.posts}
+             userID={userID}  />
           )) : 
           <>
           Fetching Posts...

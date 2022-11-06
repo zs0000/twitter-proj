@@ -105,7 +105,7 @@
 }
 
 .bio{
-    @apply m-4 bg-primary tracking-tight;
+    @apply m-4 tracking-tight;
 }
 
 @screen xs {

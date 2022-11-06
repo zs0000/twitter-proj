@@ -24,7 +24,7 @@ export default function StatusReplyBox({post}){
           setLoading(true)
          
           const inputs = {
-            author_id: post.id,
+            id: post.id,
             replier_id: userID,
             reply_text:replyText,
             reply_author: firstName + " " + lastName,

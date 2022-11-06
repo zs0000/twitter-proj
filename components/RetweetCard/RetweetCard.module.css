@@ -54,6 +54,10 @@
     @apply rounded-lg;
 }
 
+.retweetedby{
+    @apply text-sm text-[#989797] pl-8 hover:cursor-pointer;
+}
+
 
 .replycount{
     @apply text-[#b1acac];

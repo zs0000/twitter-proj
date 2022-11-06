@@ -65,3 +65,11 @@
     @apply w-full bg-background flex justify-start items-center;
 }
 
+
+.imagecontainer{
+    @apply flex flex-col items-center w-full py-2 justify-center;
+    
+}
+.image{
+    @apply rounded-lg;
+}

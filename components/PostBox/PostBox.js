@@ -11,6 +11,8 @@ export default function PostBox({session, posted, setPosted}){
     const [postText, setPostText] = useState(null);
     const [postingImage, setPostingImage] = useState(false);
     const [imageSelected, setImageSelected] = useState(false);
+    const [imageURL, setImageURL] = useState(null)
+    
 
     const {username, setUsername} = useContext(UserContext)
     const {firstName, setFirstName} = useContext(UserContext)
@@ -26,43 +28,70 @@ export default function PostBox({session, posted, setPosted}){
     // using axios as docs reccomend gave no-cors error
     //https://www.youtube.com/watch?v=Y-VgaRwWS3o&t=760s 
     const handleImageUpload = () =>{
-     
-        const formData = new FormData()
+    
+        try {
+          const formData = new FormData()
         formData.append("file", imageSelected)
         formData.append("upload_preset", "jrkwcuxy")
         console.log(imageSelected)
-        Axios.post("https://api.cloudinary.com/v1_1/repdb/image/upload",
-        formData).then((response) => {
-     console.log(response)
+       Axios.post("https://api.cloudinary.com/v1_1/repdb/image/upload",
+        formData).then((response)=>{
+          simplePostImageTweet(response)
         })
+      
+        
+        } catch (error) {
+          
+        }
+        console.log(imageURL)
+        return imageURL
+    
        
       } 
 
-      async function postTweet({username, firstName, lastName, postText}){
+      async function simplePostImageTweet(response){
         try {
-          setLoading(true)
-        if(postingImage == true){
-          handleImageUpload()
-        }
-          const inputs = {
+          let inputs = {
             id: userID,
             author_handle:username,
             author: firstName + " " + lastName,
             post_text:postText,
-            post_environment: "Twitter for Desktop"
+            post_environment: "Twitter for Desktop",
+            post_image_url: response.data.url
           }
-      
-            let { error } = await supabase.from('posts').insert(inputs);
-          
-          
-          if(error){
-            throw error
-          }
-          
+          let { error } = await supabase.from('posts').insert(inputs);
         } catch (err) {
+          
+        }finally{
+          setPosted(!posted)
+        }
+      }
+
+
+      async function postTweet({username, firstName, lastName, postText}){
+        try {
+          setLoading(true)
+        
+         
+         
+            let inputs = {
+              id: userID,
+              author_handle:username,
+              author: firstName + " " + lastName,
+              post_text:postText,
+              post_environment: "Twitter for Desktop",
+              post_image_url: imageURL
+            }
+            let { error } = await supabase.from('posts').insert(inputs);
+            setPosted(!posted)
+          }
+          
+          
+      
+        catch (err) {
           console.error(err.message)
         }finally{
-      
+         
           setLoading(false)
         }
       }
@@ -110,7 +139,7 @@ export default function PostBox({session, posted, setPosted}){
              </div>
                 <div className={s.bottombarcontainer}>
                 <span>placeholder</span>
-                <button onClick={()=>postTweet({username, firstName, lastName, postText})}>Tweet</button>
+                <button onClick={postingImage ? ()=> handleImageUpload() : ()=>postTweet({username, firstName, lastName, postText})}>Tweet</button>
                 </div>
                 
             </div>

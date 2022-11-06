@@ -44,11 +44,7 @@ export default function StatusPage(props){
 
     const [postText, setPostText] = useState(null);
 
-    useEffect(()=>{
-    getProfile()
-    getPostData()
-    getPostReplies()
-    },[])
+ 
 
     async function getProfile() {
         try {
@@ -110,13 +106,15 @@ export default function StatusPage(props){
             const status = router.query.status
             const {data, error} = await supabase
         .from("posts")
-        .select("post_text, author, author_handle, post_id, posted_at, post_environment")
+        .select("post_text, author, author_handle, post_id, posted_at, post_environment,post_image_url")
         .eq('post_id', status)
         .single() 
 
            
+           if(data){
             setRecentPost(data)
-            console.log(data)
+           
+           }
 
         } catch (err) {
             console.error(err.message)
@@ -154,7 +152,11 @@ export default function StatusPage(props){
     router.push(`/home`)
    
    }
-    
+   useEffect(()=>{
+    getProfile()
+    getPostData()
+    getPostReplies()
+    },[])
     return(
         <Layout>
             <Head>

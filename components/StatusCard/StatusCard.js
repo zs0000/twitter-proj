@@ -3,12 +3,13 @@ import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
 import ReplyModal from "../ReplyModal/ReplyModal"
 import Link from 'next/link'
-import {useContext, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import { useRouter } from "next/router"
 import { PostContext } from "../../context/PostContext"
 import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { supabase } from "../../utils/supabaseClient"
 import dateFormat, { masks } from "dateformat";
+
 export default function StatusCard({post}){
 
 
@@ -35,17 +36,63 @@ export default function StatusCard({post}){
     }
     const tempPostStorage = {};
     const [loading, setLoading] = useState(true);
+    const [replyCount, setReplyCount] = useState(null);
+    const [likeCount, setLikeCount] = useState(null)
+    const [hasImg, setHasImg] = useState(false);
+
     const {replyPost, setReplyPost} = useContext(PostContext);
     const {isOpen, setIsOpen} = useContext(PostContext);
-    const [recentPost, setRecentPost] = useState(null)
-
+    const {recentPost, setRecentPost} = useContext(PostContext)
     const handleNavigateToAuthorsPage = (author_handle) => {
         router.push(`/user/${author_handle}`)
     }
 
+    async function getPostLikeCount(){
+        try {
+            let{data, error} = await supabase
+            .from("likes")
+            .select("id")
+            .eq("status_id", post.post_id)
+
+            if(data){
+                setLikeCount(data.length)
+            
+
+            }
+            
+        } catch (err) {
+            console.error(err.message)
+        }finally{
+            setLoading(false) 
+        }
+    }
+    async function checkForImage(){
+        try {
+            if(post.post_image_url){
+                setHasImg(true)
+                setLoading(false)
+           } else{
+       
+                setHasImg(false)
+                setLoading(false)
+            }
+           
+        } catch (err) {
+            
+        }
+    } 
+    
+    
+    useEffect(()=>{
+        getPostLikeCount()
+    
+        checkForImage()
+    },[post])
 
     return(
+        
     <div className={s.postcontainer} >
+        
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
             <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
@@ -64,11 +111,16 @@ export default function StatusCard({post}){
             <div className={s.posttextcontainer}>
                 {post  ? post.post_text : ""}
             </div>
+            {hasImg ?<div className={s.imagecontainer}>
+                <Image src={post.post_image_url} onLoad={"https://res.cloudinary.com/repdb/image/upload/v1634675008/testesst.jpg"} width={1000} className={s.image} height={1000} layout="intrinsic" />
+            </div>
+            : 
+            <></>}
             <div className={s.metadatacontainer}>
             <span>{post ? dateFormat(post.posted_at, "h:MM TT - mmm dS, yyyy") : ""}</span>
             <span> - {post ? post.post_environment : ""}</span>
             </div>
-           
+            
             <div className={s.interactions}>
                 <span className={s.interaction}>
                     0 Retweets
@@ -77,7 +129,7 @@ export default function StatusCard({post}){
                     0 Quote tweets
                 </span>
                 <span className={s.interaction}>
-                    0 likes
+                    {likeCount ? likeCount : 0} likes
                 </span>
               </div>
             <div className={s.interactionsbar}>
