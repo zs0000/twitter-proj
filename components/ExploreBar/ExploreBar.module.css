@@ -1,0 +1,84 @@
+.container{
+    @apply min-h-screen flex flex-col w-full items-center justify-center ;
+}
+
+.labelcontainer{
+    @apply pb-2 pl-2;
+}
+
+.explorecontainer{
+    @apply flex flex-col fixed min-h-screen  w-full mx-4  ;
+}
+
+.label {
+    @apply text-[1.25rem] tracking-tight font-bold;
+}
+
+
+.happeningcontainer {
+    @apply w-full bg-[#F7F9F9] rounded-lg my-4 px-4 pt-2 pb-4 h-full;
+}
+
+.followcontainer{
+    @apply w-full bg-[#F7F9F9] rounded-lg mb-4 px-4 pt-2 pb-4 h-full;
+}
+
+.searchcontainer{
+    @apply w-full  h-full  mt-4 ;
+}
+
+.search{
+    @apply bg-[#ebeeee]  hover:bg-[#F7F9F9] hover:transform duration-200  py-2 w-full px-4 rounded-3xl outline-primary  ;
+   
+}
+
+
+
+
+@screen xs {
+
+    .container{
+        @apply hidden;
+    }
+   
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .container{
+       
+        width: 18%;
+    }
+
+    
+}
+
+@screen lg {
+    
+    .container{
+        @apply block;
+        width: 35%;
+    }
+    .explorecontainer{
+        width:26%;
+    }
+  
+    
+}
+
+@screen xl {
+    
+    
+    .explorecontainer{
+        width:21%;
+    }
+
+  
+}
+
+@screen 2xl {
+
+}
