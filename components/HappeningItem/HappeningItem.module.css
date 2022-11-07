@@ -1,0 +1,29 @@
+.container{
+    @apply w-full py-2 hover:bg-[#e0edff] hover:transform duration-200 flex flex-row;
+}
+
+.leftcontainer{
+    @apply  tracking-tight ;
+}
+.classifycontainer{
+    @apply w-full py-1;
+}
+
+.subject{
+    @apply text-[0.9rem] mx-2 text-[#989595];
+}
+
+.type{
+    @apply text-[0.9rem] mx-2 text-[#989595];
+}
+
+.textcontainer{
+    @apply w-full;
+}
+.text{
+    @apply font-semibold w-[50%] mx-2 text-[0.95rem];
+}
+
+.tweets{
+    @apply text-[0.8rem] text-[#989595] ml-2;
+}

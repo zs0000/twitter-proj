@@ -1,0 +1,28 @@
+.container{
+    @apply w-full flex flex-row my-6;
+}
+
+.usercontainer{
+    @apply flex flex-col w-full;
+}
+
+.imagecontainer{
+    @apply text-xs w-[15%] bg-gray max-h-[50px] px-2 rounded-full  mx-2;
+}
+
+.fullname{
+    @apply tracking-tight font-semibold leading-tight; 
+}
+
+.username{
+    @apply text-[0.85rem] text-[#989595];
+}
+
+.buttoncontainer{
+    @apply  text-background flex justify-center;
+    width: 25%;
+}
+
+.button{
+    @apply bg-[#1c1c1c] my-2 px-4 tracking-tight font-semibold text-background text-[0.8rem] rounded-3xl;
+}

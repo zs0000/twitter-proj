@@ -84,6 +84,7 @@ export default function StatusCard({post}){
     
     
     useEffect(()=>{
+     
         getPostLikeCount()
     
         checkForImage()
@@ -112,7 +113,7 @@ export default function StatusCard({post}){
                 {post  ? post.post_text : ""}
             </div>
             {hasImg ?<div className={s.imagecontainer}>
-                <Image src={post.post_image_url} onLoad={"https://res.cloudinary.com/repdb/image/upload/v1634675008/testesst.jpg"} width={1000} className={s.image} height={1000} layout="intrinsic" />
+                <Image src={post.post_image_url} placeholder={"https://res.cloudinary.com/repdb/image/upload/v1634675008/testesst.jpg"} width={1000} className={s.image} height={1000} layout="intrinsic" />
             </div>
             : 
             <></>}

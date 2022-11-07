@@ -174,9 +174,7 @@ export default function Feed({ session }){
           Fetching Posts...
           </>}
            </div>
-           <div className={s.explorecontainer}>
           
-           </div>
         </Layout>
     )
 }
