@@ -1,0 +1,21 @@
+.container{
+    @apply w-full flex flex-row mb-1;
+    height: auto;
+}
+
+.svgcontainer{
+    @apply mx-5;
+    width: 5%;
+}
+
+.profilecontainer {
+    @apply leading-tight tracking-tighter w-full flex flex-col ;
+}
+
+.profile{
+    @apply font-semibold text-[1.2rem];
+}
+
+.tweets{
+    @apply text-[#959497] text-[0.8rem];
+}

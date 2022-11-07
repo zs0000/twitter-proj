@@ -81,7 +81,7 @@ export default function StatusPage(props){
           alert(error.message)
         } finally {
          
-          setLoading(false)
+          
         }
       }
     async function getCurrentUser() {
@@ -113,14 +113,14 @@ export default function StatusPage(props){
            
            if(data){
             setRecentPost(data)
-           
+            setLoading(false)
            }
 
         } catch (err) {
             console.error(err.message)
 
         } finally{
-           setLoading(false)
+         
         }
     }
     async function getPostReplies(){
@@ -142,7 +142,7 @@ export default function StatusPage(props){
           console.error(err.message)
 
       } finally{
-         setLoading(false)
+       
       }
   }
     
@@ -169,7 +169,7 @@ export default function StatusPage(props){
                             Tweet
                         </span>
                     </div> 
-                    {loading === false ?
+                    {loading == false ?
                     <>
                     <StatusCard post={recentPost}/> 
                     <StatusReplyBox post={recentPost} />

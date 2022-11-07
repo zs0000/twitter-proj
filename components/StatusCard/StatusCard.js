@@ -63,7 +63,7 @@ export default function StatusCard({post}){
         } catch (err) {
             console.error(err.message)
         }finally{
-            setLoading(false) 
+           
         }
     }
     async function checkForImage(){
@@ -112,8 +112,8 @@ export default function StatusCard({post}){
             <div className={s.posttextcontainer}>
                 {post  ? post.post_text : ""}
             </div>
-            {hasImg ?<div className={s.imagecontainer}>
-                <Image src={post.post_image_url} placeholder={"https://res.cloudinary.com/repdb/image/upload/v1634675008/testesst.jpg"} width={1000} className={s.image} height={1000} layout="intrinsic" />
+            {loading == false ?<div className={s.imagecontainer}>
+                <img className={s.image} src={post.post_image_url}  />
             </div>
             : 
             <></>}

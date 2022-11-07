@@ -166,7 +166,7 @@ export default function Feed({ session }){
           {loading === false ? retweets.map((item)=>(
              <RetweetCard 
              ret={item.profiles}
-             key={item.posts.post_id}
+             key={item.posts.post_id + item.profiles.firstname}
              post={item.posts}
              userID={userID}  />
           )) : 

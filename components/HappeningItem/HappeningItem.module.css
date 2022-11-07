@@ -5,6 +5,14 @@
 .leftcontainer{
     @apply  tracking-tight ;
 }
+
+.rightcontainer{ 
+    @apply w-full max-w-[20%] flex justify-center items-center;
+}
+
+.image {
+    @apply rounded-lg;
+}
 .classifycontainer{
     @apply w-full py-1;
 }
@@ -18,10 +26,10 @@
 }
 
 .textcontainer{
-    @apply w-full;
+    @apply w-full ;
 }
 .text{
-    @apply font-semibold w-[50%] mx-2 text-[0.95rem];
+    @apply font-semibold   mx-2 text-[0.95rem];
 }
 
 .tweets{

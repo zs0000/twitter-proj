@@ -1,7 +1,7 @@
 import HappeningItem from "../HappeningItem/HappeningnItem";
 import FollowItem from "../FollowItem/FollowItem";
 import s from "./ExploreBar.module.css"
-
+import elonna from "../../public/elonna.jpg"
 
 export default function ExploreBar(){
     const ExploreItems = [
@@ -9,21 +9,21 @@ export default function ExploreBar(){
             subject: "Tech",
             type: "Trending",
             text: "Obama kissed elon musk after the most recent purchase of Twitter",
-            image: "its an image",
+     
             tweets:"420k Tweets"
         },
         {
             subject: "Romance",
             type: "Trending",
             text: "Elon releases 'White Lies' tapes of Obama allegedly saying small, harmless lies",
-            image: "its an image 22",
+            image: "https://res.cloudinary.com/repdb/image/upload/v1629843197/blake-connally-B3l0g6HLxr8-unsplash_jqnghm.jpg",
             tweets:"69K Tweets"
         },
         {
             subject: "Tragedy",
             type: "Live",
             text: "Multiple Twitter employees leave after allegations of Chief Twit Musk was having affairs.",
-            image: "its an image three",
+
             tweets:"1.3M Tweets"
         }
     ];
@@ -32,17 +32,17 @@ export default function ExploreBar(){
         {
             username: "elonmusk",
             fullname: "Elon Musk",
-            image: "hi, im an image"
+            image: "https://res.cloudinary.com/repdb/image/upload/v1667855210/elonna.jpg"
         },
         {
             username: "obama",
             fullname: "Barack Obama",
-            image: "hi, im an image as well"
+            image: "https://res.cloudinary.com/repdb/image/upload/v1667855210/obama.jpg"
         },
         {
             username: "mrsobama",
             fullname: "Michelle Obama",
-            image: "hi, im an image too"
+            image: "https://res.cloudinary.com/repdb/image/upload/v1667855210/michellla.jpg"
         },
         
     ];
@@ -69,6 +69,7 @@ export default function ExploreBar(){
                   text={item.text}
                    image={item.image}
                    tweets={item.tweets}
+                   key={item.text}
                    />
             ))}
             
@@ -85,6 +86,7 @@ export default function ExploreBar(){
                 username={item.username}
                 fullname={item.fullname}
                 image={item.image}
+                key={item.username}
                 />
             ))}
             </div>

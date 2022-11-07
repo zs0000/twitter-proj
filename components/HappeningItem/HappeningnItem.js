@@ -1,5 +1,5 @@
 import s from './HappeningItem.module.css'
-
+import Image from 'next/image'
 export default function HappeningItem({subject, type, image, text, tweets}){
 
     
@@ -24,7 +24,10 @@ export default function HappeningItem({subject, type, image, text, tweets}){
             </span>
             </div>
             <div className={s.rightcontainer}>
-                {image}
+                {image ? 
+                <Image className={s.image} src={image} width={75} height={75} layout="intrinsic" />
+            : 
+            <></>}
             </div>
         </div>
     )
