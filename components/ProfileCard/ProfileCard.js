@@ -44,7 +44,50 @@ export default function ProfileCard({profileData,user, following, followers,post
             console.error(err.message)
         }
     }
+    async function handleClickFollow() {
+        try {
+          let updates = {
+            follower_id: user,
+            followed_id: profileData.id,
+          }
+
+          
+
+          let { error } = await supabase.from('relationships').upsert(updates)
+          setIsFollowing(true)
+          if (error) {
+            console.log(error)
+            throw error
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+       
+        }
+      }
+      async function handleClickUnfollow() {
+        try {
     
+          let {error} = await supabase
+          .from("relationships")
+          .delete("*")
+          .eq("followed_id", profileData.id)
+          .eq("follower_id", user)
+          setIsFollowing(false)
+          
+
+        
+          if (error) {
+            console.log(error)
+            throw error
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+       
+        }
+      }
+
    
     useEffect(()=>{
         testFunction()
@@ -81,7 +124,10 @@ export default function ProfileCard({profileData,user, following, followers,post
             </div>
             </div>
             {loading == false ? <ProfileInteractionsBar
+            handleClickFollow={handleClickFollow}
+            handleClickUnfollow={handleClickUnfollow}
             isFollowing={isFollowing}
+            setIsFollowing={setIsFollowing}
             />: <></>}
             
            

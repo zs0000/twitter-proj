@@ -9,7 +9,7 @@ import { useQueryClient, useQuery } from "@tanstack/react-query"
 import { supabase } from "../../utils/supabaseClient"
 import dateFormat, { masks } from "dateformat";
 
-export default function StatusCard({post}){
+export default function StatusCard({post, retweetCount}){
 
 
     const router = useRouter();
@@ -35,13 +35,13 @@ export default function StatusCard({post}){
     }
     const tempPostStorage = {};
     const [loading, setLoading] = useState(true);
-    const [replyCount, setReplyCount] = useState(null);
+    
     const [likeCount, setLikeCount] = useState(null)
     const [hasImg, setHasImg] = useState(false);
 
     const {replyPost, setReplyPost} = useContext(PostContext);
     const {isOpen, setIsOpen} = useContext(PostContext);
-    const {recentPost, setRecentPost} = useContext(PostContext)
+    
     const handleNavigateToAuthorsPage = (author_handle) => {
         router.push(`/user/${author_handle}`)
     }
@@ -123,7 +123,7 @@ export default function StatusCard({post}){
             
             <div className={s.interactions}>
                 <span className={s.interaction}>
-                    0 Retweets
+                   {retweetCount ? retweetCount : 0} Retweets
                 </span>
                 <span className={s.interaction}>
                     0 Quote tweets

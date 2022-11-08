@@ -1,0 +1,43 @@
+.container {
+    @apply  w-full flex flex-col justify-end bottom-0 fixed  ;
+}
+
+.navbar{
+    @apply  bg-background border-t border-lightGray px-2 flex flex-row justify-evenly;
+    height: 4rem;
+}
+
+.svgcontainer{
+    @apply flex justify-center items-center;
+}
+
+.svg{
+    width: 22px;
+    height: 22px;
+}
+@screen xs {
+    
+}
+@screen sm {
+
+}
+
+@screen md {
+ .container{
+    @apply hidden;
+ }  
+}
+
+@screen lg {
+  
+  
+    
+}
+
+@screen xl {
+  
+}
+
+@screen 2xl {
+
+}

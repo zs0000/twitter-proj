@@ -10,6 +10,7 @@ import s from "../../../../../styles/StatusPage.module.css"
 import StatusReplyBox from "../../../../../components/StatusReplyBox/StatusReplyBox";
 import { UserContext } from "../../../../../context/UserContext";
 import ReplyCard from "../../../../../components/ReplyCard/ReplyCard";
+import ReplyPostCard from "../../../../../components/ReplyPostCard/ReplyPostCard";
 
 //https://stackoverflow.com/questions/71360998/nextjs-router-query-not-giving-the-id-param
 //allows for use of params in supabase query, making dynamic data fetching smoother
@@ -28,7 +29,7 @@ export default function StatusPage(props){
     const [loading, setLoading] = useState(true);
     const {recentPost, setRecentPost} = useContext(PostContext);
     const [received, setReceived] = useState(false);
-
+    const [retweetCount, setRetweetCount] = useState(false);
     const {userID, setUserID} = useContext(UserContext)
     const {username, setUsername} = useContext(UserContext)
     const {firstName, setFirstName} = useContext(UserContext)
@@ -39,8 +40,8 @@ export default function StatusPage(props){
     const {birthday, setBirthday} = useContext(UserContext)
     const {website, setWebsite} = useContext(UserContext)
     const {avatar_url, setAvatarUrl} = useContext(UserContext)
-  
-
+    const {isOpen, setIsOpen} = useContext(PostContext);
+    const {replyPost, setReplyPost} = useContext(PostContext);
 
     const [postText, setPostText] = useState(null);
 
@@ -129,7 +130,7 @@ export default function StatusPage(props){
           const status = router.query.status
           const {data, error} = await supabase
       .from("replies")
-      .select("reply_text, reply_author, reply_author_handle, reply_to_handle, reply_posted_at")
+      .select("reply_text, reply_id, reply_author, reply_author_handle, reply_to_handle, reply_posted_at")
       .eq("reply_to_status",status)
       
     
@@ -145,7 +146,24 @@ export default function StatusPage(props){
        
       }
   }
-    
+
+async function getRetweetCount(){
+    try {
+      const status = router.query.status
+        let{data, error} = await supabase
+        .from("retweets")
+        .select("id")
+        .eq("status_id", status)
+
+        if(data){
+          console.log(data)
+            setRetweetCount(data.length)
+        }
+
+    } catch (err) {
+        console.error(err.message)
+    }
+}
   
    const handleNavigateHomeBarClick = () => {
    
@@ -155,6 +173,8 @@ export default function StatusPage(props){
    useEffect(()=>{
     getProfile()
     getPostData()
+    getRetweetCount()
+    
     getPostReplies()
     },[])
     return(
@@ -162,7 +182,14 @@ export default function StatusPage(props){
             <Head>
                 <title>{props.id}s status page</title>
             </Head>
+            {isOpen ? 
+          <ReplyPostCard replyPost={replyPost}  />
+
+          :
+          <></>
+          }
                 <div className={s.content}>
+                
                     <div className={s.homenavigatebar} onClick={()=>handleNavigateHomeBarClick()}>
                     <svg viewBox="0 0 24 24" aria-hidden="true" className={s.navsvg}><g><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path></g></svg>
                         <span className={s.navtext}>
@@ -171,11 +198,13 @@ export default function StatusPage(props){
                     </div> 
                     {loading == false ?
                     <>
-                    <StatusCard post={recentPost}/> 
+                    <StatusCard post={recentPost}
+                      retweetCount={retweetCount}
+                    /> 
                     <StatusReplyBox post={recentPost} />
                     <div className={s.replies}>
                       {replies ? replies.map((reply)=>(
-                        <ReplyCard key={reply_id} reply={reply}/>
+                        <ReplyCard key={reply.reply_id} reply={reply}/>
                       )) : <>no replies</>}
                     </div>
                     </>

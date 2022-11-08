@@ -160,67 +160,8 @@ export default function ProfilePage(props){
           
         }
     }
+   
     
-    async function getRelationshipData(tested){
-        try {
-          
-            let {data, error} = await supabase
-            .from('relationships')
-            .select("follower_id")
-            .eq("follower_id", userID)
-            .eq("followed_id", tested)
-            .single()
-    
-            if(data){
-                console.log(data)
-                    
-                        if(data.follower_id == userID){
-                            setIsFollowing(true)
-                            setLoading(false)
-                            console.log("trueeeee")
-                        } else {
-                            
-                            setIsFollowing(false)
-                            setLoading(false)
-                            console.log("fallseess")
-                        }
-                    
-                    
-               
-
-                
-            }
-            console.log(error)
-        } catch (err) {
-            console.error(err.mesage)
-        } finally {
-            
-        }  
-        setLoading(false)
-    }
-
-    async function handleClickFollow() {
-        try {
-          let updates = {
-            follower_id: userID,
-            followed_id: profileData.id,
-          }
-
-          
-
-          let { error } = await supabase.from('relationships').upsert(updates)
-    
-          if (error) {
-            console.log(error)
-            throw error
-          }
-        } catch (error) {
-          alert(error.message)
-        } finally {
-       
-        }
-      }
-
       
     useEffect(()=>{
         getProfile()
