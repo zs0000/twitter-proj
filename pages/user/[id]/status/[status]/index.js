@@ -36,7 +36,7 @@ export default function StatusPage(props){
     const {lastName, setLastName}= useContext(UserContext)
     const {bio, setBio} = useContext(UserContext)
     const {joinDate, setJoinDate} = useContext(UserContext)
-    const {location, setLocation} = useContext(UserContext)
+    const {living_in, setLivingIn} = useContext(UserContext)
     const {birthday, setBirthday} = useContext(UserContext)
     const {website, setWebsite} = useContext(UserContext)
     const {avatar_url, setAvatarUrl} = useContext(UserContext)
@@ -71,7 +71,7 @@ export default function StatusPage(props){
             setLastName(data.lastname)
             setBio(data.bio)
             setJoinDate(data.join_date)
-            setLocation(data.living_in)
+            setLivingIn(data.living_in)
             setBirthday(data.birthday)
         
         

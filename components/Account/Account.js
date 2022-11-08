@@ -13,7 +13,7 @@ export default function Account({ session }) {
   const [lastName, setLastName] = useState(null)
   const [bio, setBio] = useState(null)
   const [joinDate, setJoinDate] = useState(null)
-  const [location, setLocation] = useState(null)
+  const [living_in, setLivingIn] = useState(null)
   const [birthday, setBirthday] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
@@ -67,7 +67,7 @@ export default function Account({ session }) {
         setLastName(data.lastname)
         setBio(data.bio)
         setJoinDate(data.join_date)
-        setLocation(data.living_in)
+        setLivingIn(data.living_in)
         setBirthday(data.birthday)
         setSignedUp(data.completed_sign_up)
     
@@ -98,7 +98,7 @@ export default function Account({ session }) {
         lastname: lastName,
         bio,
 
-        living_in: location,
+        living_in,
 
         completed_sign_up: true,
         updated_at: new Date(),
@@ -185,8 +185,8 @@ export default function Account({ session }) {
           id="location"
           type="text"
           placeholder='Ex: Austin, Texas'
-          value={location || ''}
-          onChange={(e) => setLocation(e.target.value)}
+          value={living_in || ''}
+          onChange={(e) => setLivingIn(e.target.value)}
         />
       </div>
  
@@ -208,7 +208,7 @@ export default function Account({ session }) {
                 
                 <button
                   className={s.button}
-                  onClick={() => updateProfile({ username, website, avatar_url, firstname, lastname, bio,  location })}
+                  onClick={() => updateProfile({ username, website, avatar_url, firstname, lastname, bio,  living_in })}
                   disabled={loading}
                 >
                   {loading ? 'Loading ...' : 'Update'}
