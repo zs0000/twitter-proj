@@ -29,6 +29,7 @@ export default function ReplyPostCard({replyPost, user}){
         reply_type: "text",
         reply_to_handle: replyPost.author_handle,
         reply_to_status:replyPost.post_id
+        
       }
       let { data, error } = await supabase.from('replies').insert(inputs);
        setIsOpen(!isOpen)
