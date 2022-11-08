@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { supabase } from '../../utils/supabaseClient'
 import { UserContext } from '../../context/UserContext'
 import Axios from "axios"
-export default function PostBox({session, posted, setPosted}){
+export default function PostBox({session, posted, setPosted, avaUrl}){
 
     const [loading, setLoading] = useState(true)
     const [postText, setPostText] = useState(null);
@@ -105,7 +105,10 @@ export default function PostBox({session, posted, setPosted}){
             <input className={s.fileupload} type="file" id="file_upload" onChange={(e)=> setImageSelected(e.target.files[0])}></input>
             <div className={s.picturecontainer}>
                
-                <Image src={anonyuser} className={s.profilepic} width={50} height={50} />
+                {avaUrl ? 
+                <Image src={avaUrl} className={s.profilepic} width={50} height={50} />
+              : 
+              <></>}
                 
                 </div>
             </div>

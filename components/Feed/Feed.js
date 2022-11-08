@@ -28,7 +28,7 @@ export default function Feed({ session }){
   const [testIndex, setTestIndex] = useState(0)
   const {isOpen, setIsOpen} = useContext(PostContext);
   const {replyPost, setReplyPost} = useContext(PostContext);
-
+  const {avatar_url, setAvatarUrl} = useContext(UserContext)
   const [posted, setPosted] = useState(null);
 
   const incrementIndex = () => {
@@ -54,8 +54,8 @@ export default function Feed({ session }){
   const getFeedContented = async () => {
     const { data, error } =  await supabase
     .from("posts")
-    .select("author, author_handle, posted_at, post_text,id, post_id,post_image_url")
-      
+    .select("*")
+        setPosts(data)
     console.log(data)
     if(error) {
       console.error(error.message)
@@ -65,7 +65,7 @@ export default function Feed({ session }){
       console.error("feed not found")
     }
  
-    setPosts(data)
+  
     return data
   }
 
@@ -102,7 +102,7 @@ export default function Feed({ session }){
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, firstname, lastname`)
+        .select(`username, firstname, lastname, avatar_url`)
         .eq('id', user.id)
         .single()
 
@@ -115,6 +115,7 @@ export default function Feed({ session }){
         setUsername(data.username)
         setFirstName(data.firstname)
         setLastName(data.lastname)
+        setAvatarUrl(data.avatar_url)
         
        
       }
@@ -150,6 +151,7 @@ export default function Feed({ session }){
 
           {loading === false ? <PostBox 
           posted={posted}
+          avaUrl={avatar_url}
           setPosted={setPosted}
          
            /> : ""}

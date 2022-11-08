@@ -107,7 +107,7 @@ export default function StatusPage(props){
             const status = router.query.status
             const {data, error} = await supabase
         .from("posts")
-        .select("post_text, author, author_handle, post_id, posted_at, post_environment,post_image_url")
+        .select("post_text, author, author_handle, post_id, posted_at, profile_picture, post_environment,post_image_url")
         .eq('post_id', status)
         .single() 
 
@@ -130,7 +130,7 @@ export default function StatusPage(props){
           const status = router.query.status
           const {data, error} = await supabase
       .from("replies")
-      .select("reply_text, reply_id, reply_author, reply_author_handle, reply_to_handle, reply_posted_at")
+      .select("reply_text, reply_id, reply_author, reply_author_handle, reply_to_handle, reply_author_picture, reply_posted_at")
       .eq("reply_to_status",status)
       
     
@@ -201,7 +201,9 @@ async function getRetweetCount(){
                     <StatusCard post={recentPost}
                       retweetCount={retweetCount}
                     /> 
-                    <StatusReplyBox post={recentPost} />
+                    <StatusReplyBox 
+                    avatarUrl={avatar_url}
+                    post={recentPost} />
                     <div className={s.replies}>
                       {replies ? replies.map((reply)=>(
                         <ReplyCard key={reply.reply_id} reply={reply}/>

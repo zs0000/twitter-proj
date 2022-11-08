@@ -255,7 +255,11 @@ export default function PostCard({post}){
     <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({post})}>
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
-            <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
+            {loading == false ? 
+            <Image src={post.profile_picture} className={s.profilepicture} width={50} height={50} />
+                :
+                <></>
+        }
             </div>
         </div>
         <div className={s.primarycontainer}>

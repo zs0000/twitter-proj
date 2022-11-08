@@ -95,7 +95,10 @@ export default function StatusCard({post, retweetCount}){
         
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
-            <Image src={anonyuser} className={s.profilepicture} width={50} height={50} />
+            {loading == false ? 
+            <Image src={post.profile_picture} className={s.profilepicture} width={50} height={50} />
+        
+        : <></>}
             </div>
             <div className={s.authorcontainer}>
                 <button  onClick={() => handleNavigateToAuthorsPage(post.author_handle)}  className={s.author} >

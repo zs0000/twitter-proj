@@ -17,6 +17,9 @@ export default function Account({ session }) {
   const [birthday, setBirthday] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const [postingImage, setPostingImage] = useState(false);
+    const [imageSelected, setImageSelected] = useState(false);
+    const [imageURL, setImageURL] = useState(null)
 
   const [signedUp, setSignedUp] = useState(null)
   const router = useRouter()
@@ -78,6 +81,7 @@ export default function Account({ session }) {
     }
   }
 
+
   async function updateProfile({ username, website, avatar_url, firstname, lastname, bio,  living_in, completed_sign_up }) {
     try {
       setLoading(true)
@@ -88,7 +92,8 @@ export default function Account({ session }) {
         id: user.id,
         username,
         website,
-        avatar_url,
+        avatar_url: "https://res.cloudinary.com/repdb/image/upload/v1667884387/anonyuser.jpg",
+        header_url:"https://res.cloudinary.com/repdb/image/upload/v1631292432/spotlight2_m9cqji.jpg",
         firstname: firstName,
         lastname: lastName,
         bio,
@@ -118,6 +123,12 @@ export default function Account({ session }) {
 
   return (
     <div className={s.main}>
+      <div className={s.welcomecontainer}>
+        <span className={s.welcome}>Welcome!</span>
+        
+              
+        <input className={s.fileupload} type="file" id="file_upload" onChange={(e)=> setImageSelected(e.target.files[0])}></input>
+      </div>
       <div className={s.form}>
       <div className={s.inputcontainer}>
         <label className={s.label} htmlFor="email">Email</label>
@@ -140,6 +151,7 @@ export default function Account({ session }) {
         className={s.input}
           id="firstname"
           type="text"
+          placeholder='First name'
           value={firstName || ''}
           onChange={(e) => setFirstName(e.target.value)}
         />
@@ -149,6 +161,7 @@ export default function Account({ session }) {
         <input
         className={s.input}
           id="lastname"
+          placeholder='Last name'
           type="text"
           value={lastName || ''}
           onChange={(e) => setLastName(e.target.value)}
@@ -159,7 +172,7 @@ export default function Account({ session }) {
         <textarea
         className={s.bio}
           id="bio"
-          
+          placeholder='Enter your bio.'
           value={bio || ''}
           onChange={(e) => setBio(e.target.value)}
         />
@@ -171,6 +184,7 @@ export default function Account({ session }) {
         className={s.input}
           id="location"
           type="text"
+          placeholder='Ex: Austin, Texas'
           value={location || ''}
           onChange={(e) => setLocation(e.target.value)}
         />
@@ -182,12 +196,16 @@ export default function Account({ session }) {
         className={s.input}
           id="website"
           type="website"
+          placeholder='Ex: www.chess.com'
           value={website || ''}
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
+     
         <div className={s.buttons}>
+       
         <div className={s.buttoncontainer}>
+                
                 <button
                   className={s.button}
                   onClick={() => updateProfile({ username, website, avatar_url, firstname, lastname, bio,  location })}

@@ -1,7 +1,10 @@
 .main{
-    @apply w-full flex flex-col justify-center items-center bg-[#ffffff] ;
+    @apply w-full h-screen flex flex-col justify-center items-center bg-[#ffffff] ;
 }
 
+.bio {
+    @apply border bg-[#f1f1f1] hover:bg-background hover:transform duration-200 border-[#eceef4] py-1 px-2 rounded-md;
+}
 
 .inputcontainer{
     @apply w-full flex  flex-col;
@@ -11,9 +14,34 @@
     @apply w-full flex flex-col justify-evenly items-center;
 }
 
+.fileupload{
+    @apply hidden;
+}
+.button {
+    @apply bg-primary my-1 text-background font-semibold tracking-tighter hover:bg-[#1a82c7] rounded shadow;
+    width: 5.2rem;
+    height: 2rem;
+}
+.uploadbutton {
+    @apply bg-primary text-xs px-2 my-1 text-background font-semibold tracking-tighter hover:bg-[#1a82c7] rounded shadow;
+    width: 7rem;
+    height: 3rem;
+}
+
+.welcomecontainer{
+    @apply pb-4 flex flex-col items-center;
+}
+
+.welcome{
+    @apply tracking-tighter font-bold text-4xl;
+}
+
+.label{
+    @apply tracking-tighter;
+}
 
 .input{
-    @apply border border-[#f0f2f8] py-1 px-2 rounded-md;
+    @apply border bg-[#f1f1f1] hover:bg-background hover:transform duration-200 border-[#eceef4] py-1 px-2 rounded-md;
 }
 
 @screen xs {
@@ -26,8 +54,11 @@
 
 @screen md {
     .form{
-        @apply grid grid-cols-2 ;
-        width:90%;
+        @apply grid grid-cols-2  px-2 py-4 border rounded-lg shadow-sm border-[#f1ecec];
+        width:80%;
+    }
+    .inputcontainer{
+        @apply px-1;
     }
    
     

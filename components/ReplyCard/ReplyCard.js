@@ -27,7 +27,10 @@ export default function ReplyCard({reply}){
         <div className={s.postcontainer} onClick={() => handleNavigateToStatusPage({reply})}>
         <div className={s.sidecontainer}>
             <div className={s.picturecontainer}>
-            <Image src={anonyuser} className={s.profilepicture} width={45} height={45} />
+           {reply   ?
+            <Image src={reply.reply_author_picture} className={s.profilepicture} width={45} height={45} />
+           :
+           <></>}
             </div>
         </div>
         <div className={s.primarycontainer}>

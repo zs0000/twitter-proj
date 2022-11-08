@@ -5,7 +5,7 @@ import Image from "next/image"
 import { UserContext } from "../../context/UserContext"
 import { supabase } from "../../utils/supabaseClient";
 
-export default function StatusReplyBox({post}){
+export default function StatusReplyBox({post, avatarUrl}){
 
     const [replyText, setReplyText] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -55,7 +55,11 @@ export default function StatusReplyBox({post}){
         <div className={s.container}>
             <div className={s.leftsidecontainer}>
             <div className={s.picturecontainer}>
-                <Image src={anonyuser} className={s.profilepic} width={50} height={50} />
+               {avatarUrl ? 
+              <Image src={avatarUrl} className={s.profilepic} width={50} height={50}  /> 
+            :
+            <></>  
+            }
             </div>
             </div>
             <div className={s.textareacontainer}>

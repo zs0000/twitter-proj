@@ -64,7 +64,7 @@ export default function ProfilePage(props){
          
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, firstname, lastname, id`)
+            .select(`username, firstname, lastname, avatar_url, header_url, id`)
             .eq('id', user.id)
             .single()
     
@@ -122,7 +122,7 @@ export default function ProfilePage(props){
         try {
             let {data, error} = await supabase
             .from("posts")
-            .select("post_text, author, author_handle, posted_at, post_id, post_image_url")
+            .select("post_text, author, author_handle, posted_at, post_id, profile_picture , post_image_url")
             .eq("author_handle", id)
             if(data){
                 setPosts(data)
