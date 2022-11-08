@@ -229,7 +229,7 @@ export default function ProfilePage(props){
        
         getTweets()
         
-    },[id])
+    },[])
 
     return(<Layout>
         <Head>
