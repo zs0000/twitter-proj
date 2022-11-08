@@ -57,7 +57,8 @@ export default function PostBox({session, posted, setPosted, avaUrl}){
             author: firstName + " " + lastName,
             post_text:postText,
             post_environment: "Twitter for Desktop",
-            post_image_url: response.data.url
+            post_image_url: response.data.url,
+            profile_picture: avaUrl
           }
           let { error } = await supabase.from('posts').insert(inputs);
         } catch (err) {
