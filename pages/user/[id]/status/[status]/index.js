@@ -175,7 +175,7 @@ export default function StatusPage(props){
                     <StatusReplyBox post={recentPost} />
                     <div className={s.replies}>
                       {replies ? replies.map((reply)=>(
-                        <ReplyCard reply={reply}/>
+                        <ReplyCard key={reply_id} reply={reply}/>
                       )) : <>no replies</>}
                     </div>
                     </>
