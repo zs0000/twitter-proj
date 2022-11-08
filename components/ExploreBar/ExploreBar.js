@@ -58,7 +58,7 @@ export default function ExploreBar(){
             <div className={s.happeningcontainer}>
                 <div className={s.labelcontainer}>
                 <span className={s.label}>
-                    What's happening
+                    Whats happening
                 </span>
                 </div>
                 

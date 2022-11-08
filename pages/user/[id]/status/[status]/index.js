@@ -160,7 +160,7 @@ export default function StatusPage(props){
     return(
         <Layout>
             <Head>
-                <title>{props.id}'s status page</title>
+                <title>{props.id}s status page</title>
             </Head>
                 <div className={s.content}>
                     <div className={s.homenavigatebar} onClick={()=>handleNavigateHomeBarClick()}>

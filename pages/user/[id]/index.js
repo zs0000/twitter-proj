@@ -234,7 +234,7 @@ export default function ProfilePage(props){
     return(<Layout>
         <Head>
             <title>
-                {id}'s profile 
+                {id}s profile 
                 
             </title>
         </Head>

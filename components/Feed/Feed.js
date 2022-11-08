@@ -2,14 +2,13 @@ import s from "./Feed.module.css"
 import { useState, useEffect, useContext } from 'react'
 import { supabase } from '../../utils/supabaseClient'
 import PostBox from "../PostBox/PostBox"
-import Sidebar from "../Sidebar/Sidebar"
-import FeedContent from "../FeedContent/FeedContent"
+
 import PostCard from "../PostCard/PostCard"
 import RetweetCard from "../RetweetCard/RetweetCard"
 import { PostContext } from "../../context/PostContext"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import ReplyPostCard from "../ReplyPostCard/ReplyPostCard"
-import useFeedContent from "../../hooks/useFeedContent"
+
 import Layout from "../Layout/Layout"
 import Head from "next/head"
 import { UserContext } from "../../context/UserContext"

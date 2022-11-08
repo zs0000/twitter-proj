@@ -1,8 +1,7 @@
 import s from "./RetweetCard.module.css"
 import Image from "next/image"
 import anonyuser from "../../public/anonyuser.jpg"
-import ReplyModal from "../ReplyModal/ReplyModal"
-import Link from 'next/link'
+
 import {useContext, useEffect, useState} from "react"
 import { useRouter } from "next/router"
 import { PostContext } from "../../context/PostContext"
