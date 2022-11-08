@@ -32,7 +32,8 @@ export default function StatusReplyBox({post, avatarUrl}){
             reply_environment:"Twitter for Desktop",
             reply_type: "text",
             reply_to_handle: post.author_handle,
-            reply_to_status:post.post_id
+            reply_to_status:post.post_id,
+            reply_author_picture: avatar_url
           }
 
           let { data, error } = await supabase.from('replies').insert(inputs);
