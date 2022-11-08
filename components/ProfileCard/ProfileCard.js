@@ -8,7 +8,7 @@ import { supabase } from '../../utils/supabaseClient'
 import PostCard from '../PostCard/PostCard'
 import ProfileNavbar from '../ProfileNavbar/ProfileNavbar'
 
-export default function ProfileCard({profileData,user, following, followers,posts}) {
+export default function ProfileCard({profileData,user, following, followers,posts, setEditOpen, editOpen, isOwner, setIsOwner}) {
        
     const [loading, setLoading] = useState(true);
     const [isFollowing, setIsFollowing] = useState(false)
@@ -20,9 +20,7 @@ export default function ProfileCard({profileData,user, following, followers,post
         .eq('followed_id', profileData.id)
         .eq("follower_id", user)
         .single();
-        if(profileData.id == user){
-            console.log("This is owner")
-        }
+       
         if(data){
             console.log(data)
             setIsFollowing(true)
@@ -30,7 +28,10 @@ export default function ProfileCard({profileData,user, following, followers,post
         return true;
         }
         else{
-            setIsFollowing(false)
+            if(profileData.id == user){
+                setIsFollowing("owner")
+                setIsOwner(true)
+            }
             setLoading(false)
             return false;
         }
@@ -128,6 +129,10 @@ export default function ProfileCard({profileData,user, following, followers,post
             handleClickUnfollow={handleClickUnfollow}
             isFollowing={isFollowing}
             setIsFollowing={setIsFollowing}
+            isOwner={isOwner}
+            editOpen={editOpen}
+            setEditOpen={setEditOpen}
+
             />: <></>}
             
            

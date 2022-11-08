@@ -10,6 +10,7 @@ import PostCard from "../../../components/PostCard/PostCard";
 import { UserContext } from "../../../context/UserContext";
 import ProfileInteractionsBar from "../../../components/ProfileInteractionsBar/ProfileInteractionsBar";
 import ProfileCard from "../../../components/ProfileCard/ProfileCard";
+import ProfileEditModal from "../../../components/ProfileEditModal/ProfileEditModal";
 
 //
 export async function getServerSideProps(context) {
@@ -22,6 +23,7 @@ export async function getServerSideProps(context) {
 export default function ProfilePage(props){
     const router = useRouter();
     let { id } = router.query
+  
     const [loading, setLoading] = useState(true);
     const [profileData, setProfileData] = useState(null);
     const [profileID, setProfileID] = useState(null);
@@ -30,11 +32,17 @@ export default function ProfilePage(props){
  
     const [followers, setFollowers] = useState(null)
     const [following, setFollowing] = useState(null)
-    
+    const [isOwner, setIsOwner] =  useState(false);
+    const [editOpen, setEditOpen] = useState(false);
     const {username, setUsername} = useContext(UserContext)
     const {firstName , setFirstName} = useContext(UserContext)
     const {lastName , setLastName} = useContext(UserContext)
     const {userID, setUserID} = useContext(UserContext)
+    const {bio, setBio} = useContext(UserContext)
+    const {living_in, setLivingIn} = useContext(UserContext)
+    const {website, setWebsite} = useContext(UserContext)
+    const {avatar_url, setAvatarUrl} = useContext(UserContext)
+    const {header_url, setHeaderUrl} = useContext(UserContext)
     const [testing, setTesting] =useState(null)
     let x = [];
  
@@ -64,7 +72,7 @@ export default function ProfilePage(props){
          
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, firstname, lastname, avatar_url, header_url, id`)
+            .select(`*`)
             .eq('id', user.id)
             .single()
     
@@ -77,7 +85,11 @@ export default function ProfilePage(props){
             setUsername(data.username)
             setFirstName(data.firstname)
             setLastName(data.lastname)
-           
+            setBio(data.bio)
+            setLivingIn(data.living_in)
+            setWebsite(data.website)
+            setAvatarUrl(data.avatar_url)
+            setHeaderUrl(data.header_url)
           }
         } catch (error) {
           alert(error.message)
@@ -164,13 +176,14 @@ export default function ProfilePage(props){
     
       
     useEffect(()=>{
-        getProfile()
-        getPublicProfileData()
+       
+      getProfile()
+      getPublicProfileData()
     
        
-        getTweets()
+      getTweets()
         
-    },[])
+    },[router.query.slug])
 
     return(<Layout>
         <Head>
@@ -178,7 +191,35 @@ export default function ProfilePage(props){
                 {id}s profile 
                 
             </title>
-        </Head>
+        </Head>  
+        {isOwner && editOpen ? 
+        <ProfileEditModal
+        setEditOpen={setEditOpen}
+        editOpen={editOpen}
+        userID={userID}
+        setUsername={setUsername}
+        username={username}
+        setFirstName={setFirstName}
+        firstName={firstName}
+        setLastName={setLastName}
+        lastName={lastName}
+        setBio={setBio}
+        bio={bio}
+        setLivingIn={setLivingIn}
+        living_in={living_in}
+        setWebsite={setWebsite}
+        website={website}
+        setAvatarUrl={setAvatarUrl}
+        avatar_url={avatar_url}
+        setHeaderUrl={setHeaderUrl}
+        header_url={header_url}
+
+        />
+        :
+        <></>
+        
+        }
+        
         {loading == false  ?
         
         <ProfileCard
@@ -188,6 +229,10 @@ export default function ProfilePage(props){
         posts={posts}
         following={following}
         followers={followers}
+        isOwner={isOwner}
+        setIsOwner={setIsOwner}
+        editOpen={editOpen}
+        setEditOpen={setEditOpen}
         />
         
 

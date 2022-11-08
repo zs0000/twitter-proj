@@ -1,0 +1,107 @@
+.container{
+    @apply w-full z-40 h-full absolute  flex flex-col items-center justify-center;
+}
+
+.background {
+    @apply w-full  fixed h-full bg-[#00000047] flex flex-col items-center justify-center;
+}
+
+.form{
+    @apply px-20 py-10 bg-background rounded-lg;
+}
+
+.bio {
+    @apply border bg-[#f1f1f1] hover:bg-background hover:transform duration-200 border-[#eceef4] py-1 px-2 rounded-md;
+}
+
+.inputcontainer{
+    @apply w-full flex  flex-col;
+}
+.topinputcontainer{
+    @apply w-full flex  flex-col;
+}
+
+.buttons{
+    @apply w-full flex flex-col justify-evenly items-center;
+}
+
+.fileupload{
+    @apply hidden;
+}
+.button {
+    @apply bg-primary my-1 text-background font-semibold tracking-tighter hover:bg-[#1a82c7] rounded shadow;
+    width: 5.2rem;
+    height: 2rem;
+}
+.uploadbutton {
+    @apply bg-primary text-xs px-2 my-1 text-background font-semibold tracking-tighter hover:bg-[#1a82c7] rounded shadow;
+    width: 5rem;
+    height: 2rem;
+}
+.gray{
+    @apply p-2 rounded-full transform duration-200 bg-[#dbd9d9] ;
+    width: 10px;
+    height: 10px
+}
+.yellow{
+    @apply p-2 rounded-full transform duration-200 bg-[#d5d053];
+    width: 10px;
+    height: 10px
+}
+.green{
+    @apply p-2 rounded-full transform duration-200 bg-[#018850] ;
+    width: 10px;
+    height: 10px
+}
+
+.welcomecontainer{
+    @apply pb-4 flex flex-col items-center;
+}
+
+.welcome{
+    @apply tracking-tighter font-bold text-4xl;
+}
+
+.label{
+    @apply tracking-tighter;
+}
+
+.input{
+    @apply border bg-[#f1f1f1] hover:bg-background hover:transform duration-200 border-[#eceef4] py-1 px-2 rounded-md;
+}
+
+.linkinput{
+    @apply border text-xs bg-[#f1f1f1] hover:bg-background hover:transform duration-200 border-[#eceef4] py-1 px-2 rounded-md;
+}
+
+@screen xs {
+
+}
+
+@screen sm {
+
+}
+
+@screen md {
+    .form{
+        @apply grid grid-cols-1  px-2 py-4 border rounded-lg shadow-sm border-[#f1ecec];
+        width:80%;
+    }
+    .inputcontainer{
+        @apply px-1;
+    }
+   
+    
+}
+
+@screen lg {
+
+}
+
+@screen xl {
+
+}
+
+@screen 2xl {
+
+}

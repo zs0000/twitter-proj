@@ -51,6 +51,8 @@ export default function Feed({ session }){
     setUserID(session.user.id)
     return session.user
   }
+
+
   const getFeedContented = async () => {
     const { data, error } =  await supabase
     .from("posts")

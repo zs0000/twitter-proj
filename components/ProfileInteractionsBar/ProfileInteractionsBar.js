@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import s from "./ProfileInteractionsBar.module.css"
 
-export default function ProfileInteractionsBar({isFollowing, setIsFollowing, handleClickFollow, handleClickUnfollow} ){
+export default function ProfileInteractionsBar({isFollowing, setIsFollowing, setEditOpen, editOpen, handleClickFollow, handleClickUnfollow} ){
 
     return(
         <div className={s.profileinteractbar}>
@@ -16,8 +16,10 @@ export default function ProfileInteractionsBar({isFollowing, setIsFollowing, han
                 <div className={s.followbuttoncontainer}>
                     
                    {isFollowing == true ?
-                    <span onClick={()=>handleClickUnfollow()} className={s.followbutton}>Following</span> :
-                    <span onClick={()=>handleClickFollow()} className={s.followbutton}>Follow</span>}
+                    <span onClick={()=>handleClickUnfollow()} className={s.followbutton}>Following</span> : isFollowing == false ?
+                    <span onClick={()=>handleClickFollow()} className={s.followbutton}>Follow</span>
+                    :<span onClick={()=> setEditOpen(!editOpen)} className={s.followbutton}>Edit</span>       
+                }
                 </div>
             </div>
     )
