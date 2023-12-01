@@ -8,21 +8,21 @@ export default function ExploreBar(){
         {
             subject: "Tech",
             type: "Trending",
-            text: "Obama kissed elon musk after the most recent purchase of Twitter",
+            text: "OpenAi fires themselves after creating a robot that can create robots that can create robots.",
      
-            tweets:"420k Tweets"
+            tweets:"424k Tweets"
         },
         {
             subject: "Romance",
             type: "Trending",
-            text: "Elon releases 'White Lies' tapes of Obama allegedly saying small, harmless lies",
+            text: "The new 'valley' of love is the new 'valley' of death, in this romance novel.",
             image: "https://res.cloudinary.com/repdb/image/upload/v1629843197/blake-connally-B3l0g6HLxr8-unsplash_jqnghm.jpg",
-            tweets:"69K Tweets"
+            tweets:"66K Tweets"
         },
         {
             subject: "Tragedy",
             type: "Live",
-            text: "Multiple Twitter employees leave after allegations of Chief Twit Musk was having affairs.",
+            text: "AI Agents are now a larger percentage of the workforce than humans, setting an unprecedented record.",
 
             tweets:"1.3M Tweets"
         }
