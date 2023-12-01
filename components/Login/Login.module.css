@@ -1,9 +1,21 @@
 .main{
-    @apply  w-full h-full z-50 flex items-center justify-center;
+    @apply  w-full h-full  flex items-center justify-center;
 }
 
 .form{
-    @apply shadow bg-background rounded-lg flex flex-col justify-center items-center ;
+    @apply shadow bg-background rounded-lg flex z-50 flex-col justify-center items-center ;
     width: 60%;
     height:65%;
+}
+
+.signinmessage{
+    @apply text-2xl font-bold text-primary px-8 text-center w-full pb-8
+}
+
+.button{
+    @apply bg-primary text-background font-bold py-2 px-4 rounded-full  mt-4
+}
+
+.input{
+    @apply border border-primary rounded-full px-4 py-2;
 }

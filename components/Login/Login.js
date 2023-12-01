@@ -24,7 +24,7 @@ export default function Auth() {
       <div className={s.form}>
         
         <p className={s.signinmessage}>
-          Sign in via magic link with your email below
+          Sign in via a one-time link using your email:
         </p>
         <div>
           <input
